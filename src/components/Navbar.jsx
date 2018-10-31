@@ -4,7 +4,11 @@ import '../styles/Navbar.scss';
 class Navbar extends Component {
   render() {
     return (
-      <div className='navbar'>NavBar</div>
+      <div className='navbar'>
+        <button>PREV</button>
+        <h2>Title</h2>
+        <button>NEXT</button> 
+      </div>
     );
   }
 }

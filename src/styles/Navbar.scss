@@ -1,6 +1,11 @@
 @import "vars";
 
 .navbar {
-  color: $primary-color;
+  grid-area: top-center;
+  height: $navbar-height;
+  background-color: $primary-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 

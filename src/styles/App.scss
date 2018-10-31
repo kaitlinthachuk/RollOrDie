@@ -2,4 +2,13 @@
 
 .App {
   text-align: center;
+  color: $primary-text;
+  
+  // Setting up grid layout
+  display: grid;
+  grid-template-areas: $grid-template-areas;
+  grid-template-columns: $grid-template-columns;
+  grid-template-rows: $grid-template-rows;
+  min-height: 100vh;
+
 }

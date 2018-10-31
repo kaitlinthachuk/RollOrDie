@@ -1,5 +1,10 @@
 @import 'vars';
 
 .bottom-navbar {
-  color: $secondary-color;
+  grid-area: bottom-center;
+  height: $navbar-height;
+  background-color: $primary-color;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

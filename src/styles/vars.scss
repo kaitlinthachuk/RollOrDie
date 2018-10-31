@@ -1,2 +1,14 @@
 $primary-color: rgba(110,130,100,0.8);
 $secondary-color: lighten($primary-color, 10);
+$primary-text: white;
+$secondary-text: black;
+
+// NAVBAR VARIABLES
+$navbar-height: 3rem;
+
+$grid-template-areas:
+'top-left top-center top-right'
+'main-left main-center main-right'
+'bottom-left bottom-center bottom-right';
+$grid-template-columns: 20% auto 20%;
+$grid-template-rows: $navbar-height auto $navbar-height;
