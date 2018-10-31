@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Page from './Page.jsx';
 import SearchBar from '../components/SearchBar.jsx';
@@ -39,7 +39,7 @@ class Create extends Component {
         },
         (error) =>{
           this.setState({
-            hasError: true,
+            isError: true,
             error: error
           });
         })
