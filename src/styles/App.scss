@@ -4,11 +4,23 @@
   text-align: center;
   color: $primary-text;
   
+  .layout{
   // Setting up grid layout
   display: grid;
   grid-template-areas: $grid-template-areas;
   grid-template-columns: $grid-template-columns;
   grid-template-rows: $grid-template-rows;
-  min-height: 100vh;
+  height: 100vh;
+  }
 
+  .page {
+    grid-area: main-center;
+    background-color: $secondary-color;
+    height: calc(100vh - 2* #{$navbar-height  });
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
 }
+
+

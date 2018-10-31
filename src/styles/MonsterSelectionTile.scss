@@ -1,0 +1,13 @@
+@import 'vars';
+
+.monster-selection-tile {
+  line-height: 5rem;
+  background-color: $primary-color;
+  cursor: pointer;
+  order: 2;
+
+  &.selected {
+    background-color: darken($primary-color, 30); 
+    order: 1;
+  }
+}
