@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import BottomNavbar from './components/BottomNavbar.jsx';
-import Navbar from './components/Navbar.jsx';
-import EncounterManager from './components/EncounterManager.jsx';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+// Pages
+import Create from './pages/Create.jsx'
+
 
 import './styles/App.scss';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Navbar></Navbar>
-        <EncounterManager></EncounterManager>
-        <BottomNavbar></BottomNavbar>
-      </div>
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={null} />
+          <Route path="/New" component={Create} />
+        </div>
+      </Router>
     );
   }
 }
