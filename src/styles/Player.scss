@@ -1,0 +1,9 @@
+@import "vars";
+
+.player-container {
+  grid-area: main-center;
+  height: auto;
+  width: -webkit-fill-available;
+  background-color: $secondary-color;
+  align-items: center;
+}
