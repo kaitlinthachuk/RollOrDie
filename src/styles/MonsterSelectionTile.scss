@@ -1,13 +1,34 @@
 @import 'vars';
 
 .monster-selection-tile {
-  line-height: 5rem;
+  display: grid;
+  grid-template: 
+  "name name name"
+  "minus count plus";
   background-color: $primary-color;
   cursor: pointer;
-  order: 2;
+  border-radius: 0.2rem;
 
   &.selected {
-    background-color: darken($primary-color, 30); 
-    order: 1;
+    background-color: darken($primary-color, 30);
+  }
+
+  .monster-name {
+    grid-area: name;
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .remove-btn {
+    grid-area: minus;
+  }
+
+  .add-btn {
+    grid-area: plus;
+  }
+
+  .count {
+    grid-area: count;
+    font-size: 2rem;
   }
 }

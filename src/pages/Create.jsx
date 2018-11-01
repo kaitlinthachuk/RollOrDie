@@ -12,14 +12,14 @@ class Create extends Component {
     super(props);
 
     this.state = {
-      isError: false,
-      error: null,
-      monsters: [],
+      isError         : false,
+      error           : null,
+      monsters        : [],
       selectedMonsters: {},
-      searchTerm: ''
+      searchTerm      : '',
     };
 
-    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSearchChange     = this.handleSearchChange.bind(this);
     this.handleMonsterTileClick = this.handleMonsterTileClick.bind(this);
   }
   componentDidMount() {
@@ -50,7 +50,7 @@ class Create extends Component {
     }
   }
   render() {
-    const { isError, error } = this.state;
+    const { isError, error, selectedMonsters } = this.state;
     
     let contents;
     if (isError) {
@@ -60,11 +60,17 @@ class Create extends Component {
     }
 
     return (
-      <Page id='create-page' leading={<Link to={'/'}>Back</Link>}>
+      <Page 
+        id='create-page' 
+        leading={<Link to={'/'}>Back</Link>}
+        trailing={<Link to={{ pathname: '/', state: selectedMonsters }}>Next</Link>}>
         <SearchBar placeHolder={'Search for monster...'} onChange={this.handleSearchChange}/>
         <div id='monster-grid'>
           { contents }
         </div>
+        <ul id='bottom-sheet'>
+          { this.getSelectionList() }
+        </ul>
       </Page>
     );
   }
@@ -75,12 +81,37 @@ class Create extends Component {
     if (monsters === null) return [];
     return monsters
     .filter((monster) => {
-      return monster.name.match(new RegExp('.*' + searchTerm + ".*", "i")) || selectedMonsters[monster.id] != null;
+      return monster.name.match(new RegExp('.*' + searchTerm + ".*", "i"));
     })
     .map((monster) => {
      return (
-      <MonsterSelectionTile id={monster.id} name={monster.name} count={selectedMonsters[monster.id] ? selectedMonsters[monster.id] : 0} onClick={this.handleMonsterTileClick}/>);
+      <MonsterSelectionTile
+        key     = {monster.id}
+        id      = {monster.id}
+        name    = {monster.name}
+        count   = {selectedMonsters[monster.id] ? selectedMonsters[monster.id].count : 0}
+        onClick = {this.handleMonsterTileClick}/>);
     });
+  }
+
+  getSelectionList() {
+    const { selectedMonsters } = this.state;
+    let challengeRating = 0;
+    let items = Object.keys(selectedMonsters).map((monsterId) => {
+      let monster = selectedMonsters[monsterId];
+      if ( monster.details != null) {
+        challengeRating += monster.details.challenge_rating * monster.count;
+      }
+      return (
+        <li>
+          <span>{`${monster.count}x`}</span>
+          <span>{`${monster.name}`}</span>
+          <span>{`${monster.details ? monster.details.challenge_rating * monster.count : 0}`}</span></li>
+      )
+    });  
+    items.push(<li className='hline'></li>);
+    items.push(<li className='total'><span>Total</span><span>{`${challengeRating}`}</span></li>)
+    return items;
   }
 
   getMonsterId(monsterObj) {
@@ -96,18 +127,53 @@ class Create extends Component {
     });
   }
 
-  handleMonsterTileClick(monsterId) {
-    let { selectedMonsters } = this.state;
-    let counter = selectedMonsters[monsterId];
-    if (counter == null) {
-      selectedMonsters[monsterId] = 1;
+  handleMonsterTileClick(monsterId, button) {
+    let { monsters, selectedMonsters } = this.state;
+    if (!(monsterId in selectedMonsters)) {
+      if (button === 'add') {
+        selectedMonsters[monsterId] = { 
+          count  : 1,
+          name: monsters[monsterId - 1].name,
+          details: null,
+          url: monsters[monsterId - 1].url,
+        };
+        this.fetchMonsterDetails(monsters[monsterId -1]);
+      }
     } else {
-      selectedMonsters[monsterId] += 1;
+      if (button === 'add') {
+        selectedMonsters[monsterId].count += 1;
+      } 
+      if (button === 'remove') {
+        selectedMonsters[monsterId].count -= 1;
+        if (selectedMonsters[monsterId].count < 1) {
+          delete selectedMonsters[monsterId];
+        }
+      }
     }
 
     this.setState({
       selectedMonsters: selectedMonsters 
     });
+  }
+
+  fetchMonsterDetails(monster) {
+    const { id, url } = monster;
+    fetch(url)
+      .then((res) => { return res.json()})
+      .then((success) => {
+        let { selectedMonsters } = this.state;
+        if (selectedMonsters[id] == null ) return;
+        selectedMonsters[id].details = success;
+        this.setState({
+          selectedMonsters: selectedMonsters
+        });
+      },
+      (error) => {
+        this.setState({
+          isError: true,
+          error  : error,
+        })
+      });
   }
 }
 

@@ -1,10 +1,32 @@
 @import 'vars';
 
-#monster-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
-  justify-content: space-around;
-  align-content: start;
-  grid-row-gap: 1rem;
-  overflow-y: scroll;
+#create-page {
+  display: flex;
+  flex-direction: column;
+  #monster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 10rem);
+    grid-auto-rows: 10rem;
+    justify-content: space-around;
+    align-content: start;
+    grid-row-gap: 1rem;
+    overflow-y: auto;
+  }
+  #bottom-sheet {
+    margin-top: auto;
+    text-align: left;
+    list-style: none;
+    padding: 1rem;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    li.hline {
+      height: 0.2rem;
+      width: 100%;
+      background-color: white;
+    }
+  }
 }
