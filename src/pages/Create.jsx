@@ -35,7 +35,7 @@ class Create extends Component {
           sessionStorage.setItem('monsters', JSON.stringify(monsters));
           this.setState({
             monsters: monsters
-          }); 
+          });
         },
         (error) =>{
           this.setState({
@@ -51,7 +51,7 @@ class Create extends Component {
   }
   render() {
     const { isError, error, selectedMonsters } = this.state;
-    
+
     let contents;
     if (isError) {
       contents = <div>{error}</div>;
@@ -60,10 +60,10 @@ class Create extends Component {
     }
 
     return (
-      <Page 
-        id='create-page' 
+      <Page
+        id='create-page'
         leading={<Link to={'/'}>Back</Link>}
-        trailing={<Link to={{ pathname: '/', state: selectedMonsters }}>Next</Link>}>
+        trailing={<Link to={'/PlayerSelection'}>Next</Link>}>
         <SearchBar placeHolder={'Search for monster...'} onChange={this.handleSearchChange}/>
         <div id='monster-grid'>
           { contents }
@@ -77,7 +77,7 @@ class Create extends Component {
 
   buildMonsterList() {
     const { monsters, searchTerm, selectedMonsters } = this.state;
-    
+
     if (monsters === null) return [];
     return monsters
     .filter((monster) => {
@@ -108,7 +108,7 @@ class Create extends Component {
           <span>{`${monster.name}`}</span>
           <span>{`${monster.details ? monster.details.challenge_rating * monster.count : 0}`}</span></li>
       )
-    });  
+    });
     items.push(<li className='hline'></li>);
     items.push(<li className='total'><span>Total</span><span>{`${challengeRating}`}</span></li>)
     return items;
@@ -119,7 +119,7 @@ class Create extends Component {
     let id = parts[parts.length - 1];
     console.log(id);
     return id;
-  } 
+  }
 
   handleSearchChange({ target }) {
     this.setState({
@@ -131,7 +131,7 @@ class Create extends Component {
     let { monsters, selectedMonsters } = this.state;
     if (!(monsterId in selectedMonsters)) {
       if (button === 'add') {
-        selectedMonsters[monsterId] = { 
+        selectedMonsters[monsterId] = {
           count  : 1,
           name: monsters[monsterId - 1].name,
           details: null,
@@ -142,7 +142,7 @@ class Create extends Component {
     } else {
       if (button === 'add') {
         selectedMonsters[monsterId].count += 1;
-      } 
+      }
       if (button === 'remove') {
         selectedMonsters[monsterId].count -= 1;
         if (selectedMonsters[monsterId].count < 1) {
@@ -152,7 +152,7 @@ class Create extends Component {
     }
 
     this.setState({
-      selectedMonsters: selectedMonsters 
+      selectedMonsters: selectedMonsters
     });
   }
 
