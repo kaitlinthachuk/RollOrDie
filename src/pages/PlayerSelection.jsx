@@ -12,6 +12,7 @@ class PlayerSelection extends Component {
     e.preventDefault();
     var playerName = e.target.name.value;
     var ac = e.target.ac.value;
+    var init = e.target.initiative.value;
     var newPlayer = {}
 
     if(playerName.length > 0){
@@ -24,6 +25,11 @@ class PlayerSelection extends Component {
       newPlayer.ac = ac;
     }
 
+    if (init > 0) {
+      e.target.initiative.value = "";
+      newPlayer.initiative = init;
+    }
+
     this.setState({
     playerList: [...this.state.playerList, newPlayer]
   })
@@ -33,7 +39,7 @@ class PlayerSelection extends Component {
 
     for (var i in this.state.playerList) {
       var player = this.state.playerList[i];
-      players.push(<PlayerComponent playerName={player.name} ac={player.ac} key= {i} />);
+      players.push(<PlayerComponent playerName={player.name} ac={player.ac} key= {i} initiative={player.initiative} />);
     };
     return (
       <Page
@@ -53,6 +59,7 @@ const PlayerForm = props => (
   <form id = "player-form" onSubmit={props.onFormSubmit}>
     <div><input type="text" name = "name" placeholder = "Enter Player Name"/></div>
     <div><input type = "number" name = "ac" placeholder= "Enter Player's AC"></input></div>
+    <div><input type = "number" name = "initiative" placeholder = "Enter Player's Initiative" ></input></div>
     <div><button>Add Player</button></div>
   </form>
   <div id ="added-players-container">
@@ -64,6 +71,7 @@ const PlayerForm = props => (
 const PlayerComponent = props => (<div class = "player-card" id = {props.playerName}>
   <p> Player's Name: {props.playerName}</p><br></br>
   <p> Player's AC: {props.ac}</p>
+  <p>Player's Initiative: {props.initiative}</p>
 </div>
 );
 
