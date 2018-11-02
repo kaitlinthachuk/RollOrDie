@@ -1,0 +1,21 @@
+@import "vars";
+
+.player-card {
+  height: 100px;
+  width: 300px;
+  text-align: left;
+  margin: auto;
+  background: $primary-color;
+}
+.button{
+  background-color: $secondary-color;
+  color: $primary-text;
+  border: none;
+  padding: 5px 5px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 5px;
+  float: right;
+  margin-right: 5px;
+}

@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Page from './Page.jsx';
+import '../styles/PlayerSelection.scss'
 
 class PlayerSelection extends Component {
   constructor() {
     super();
     this.state = {playerList: []};
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.deleteOnClick = this.deleteOnClick.bind(this);
+  }
+  deleteOnClick(e){
+    e.preventDefault();
+    console.log(this.state.playerList)
+    var playerContainer = e.target.parentElement.parentElement;
+    var name = playerContainer.id;
+    var newList = this.state.playerList.filter(player => {
+      return player.name != name;
+    })
+
+    this.setState({
+      playerList: newList
+    })
+
+    console.log(this.state)
   }
   onFormSubmit(e){
     e.preventDefault();
@@ -39,7 +56,8 @@ class PlayerSelection extends Component {
 
     for (var i in this.state.playerList) {
       var player = this.state.playerList[i];
-      players.push(<PlayerComponent playerName={player.name} ac={player.ac} key= {i} initiative={player.initiative} />);
+      players.push(<PlayerComponent playerName={player.name} ac={player.ac} key= {i} initiative={player.initiative}
+      deleteOnClick = {this.deleteOnClick}/>);
     };
     return (
       <Page
@@ -68,8 +86,9 @@ const PlayerForm = props => (
   </div>
 );
 
-const PlayerComponent = props => (<div class = "player-card" id = {props.playerName}>
-  <p> Player's Name: {props.playerName}</p><br></br>
+const PlayerComponent = props => (<div className = "player-card" id = {props.playerName}>
+  <p> Player's Name: {props.playerName}
+  <button className='button' onClick = {props.deleteOnClick}>Delete</button></p>
   <p> Player's AC: {props.ac}</p>
   <p>Player's Initiative: {props.initiative}</p>
 </div>
