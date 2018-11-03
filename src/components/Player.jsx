@@ -7,7 +7,7 @@ class Player extends Component {
     var playerAc = this.props.ac;
     return (
       <div className='player-tile' id = {playerName}>
-        <p>Player: {playerName} <br></br>
+        <p>Player: {playerName} <label className= 'unconscious-label'> <input type='checkbox'></input>Unconscious </label> <br></br>
          AC: {playerAc}</p>
       </div>
     );

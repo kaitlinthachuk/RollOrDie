@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Player from './Player.jsx';
 import Monster from './Monsters.jsx';
+import Carousel from './Carousel.jsx';
 import '../styles/EncounterManager.scss';
 
 class EncounterManager extends Component {
@@ -201,10 +202,10 @@ class EncounterManager extends Component {
               generatedComponents.push( < Monster details = {element} key = {index} > < /Monster>);
               })
 
-          return ( <
-            div className = 'encounter-container' >
-            {generatedComponents} <
-            /div>
+          return (
+            <div className = 'encounter-container' >
+            <Carousel children = {generatedComponents}></Carousel>
+            </div>
           );
         }
       }

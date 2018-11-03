@@ -1,9 +1,9 @@
 @import "vars";
+.button{
+  float: none;
+}
 
-.player-container {
-  grid-area: main-center;
-  height: auto;
-  width: -webkit-fill-available;
-  background-color: $secondary-color;
-  align-items: center;
+.unconscious-label{
+  float: right;
+  margin: 10px;
 }
