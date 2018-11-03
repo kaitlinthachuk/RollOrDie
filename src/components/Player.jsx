@@ -6,7 +6,7 @@ class Player extends Component {
     var playerName = this.props.name;
     var playerAc = this.props.ac;
     return (
-      <div className='player-container'>
+      <div className='player-tile' id = {playerName}>
         <p>Player: {playerName} <br></br>
          AC: {playerAc}</p>
       </div>

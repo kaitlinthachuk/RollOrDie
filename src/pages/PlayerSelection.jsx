@@ -6,24 +6,29 @@ import '../styles/PlayerSelection.scss'
 class PlayerSelection extends Component {
   constructor() {
     super();
-    this.state = {playerList: []};
+    this.state = {playerList: [], monsterList: []};
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
   }
+  componentDidMount() {
+    var recievedMonsters = this.props.location.state.monsterList;
+    console.log(recievedMonsters);
+
+    this.setState({
+      monsterList : recievedMonsters
+    })
+  }
   deleteOnClick(e){
     e.preventDefault();
-    console.log(this.state.playerList)
     var playerContainer = e.target.parentElement.parentElement;
     var name = playerContainer.id;
     var newList = this.state.playerList.filter(player => {
-      return player.name != name;
+      return player.name !== name;
     })
 
     this.setState({
       playerList: newList
     })
-
-    console.log(this.state)
   }
   onFormSubmit(e){
     e.preventDefault();
@@ -63,7 +68,7 @@ class PlayerSelection extends Component {
       <Page
         id='player-selection-page'
         leading={<Link to={'/New'}>Back</Link>}
-        trailing={<Link to={'/' }>Next</Link>}>
+        trailing={<Link to={{pathname: '/Encounter', state : this.state} }>Next</Link>}>
       <PlayerForm onFormSubmit ={this.onFormSubmit}>
         {players}
       </PlayerForm>

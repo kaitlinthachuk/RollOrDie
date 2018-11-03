@@ -63,7 +63,7 @@ class Create extends Component {
       <Page
         id='create-page'
         leading={<Link to={'/'}>Back</Link>}
-        trailing={<Link to={'/PlayerSelection'}>Next</Link>}>
+        trailing={<Link to={{pathname : '/PlayerSelection', state: { monsterList: selectedMonsters } }}>Next</Link>}>
         <SearchBar placeHolder={'Search for monster...'} onChange={this.handleSearchChange}/>
         <div id='monster-grid'>
           { contents }
