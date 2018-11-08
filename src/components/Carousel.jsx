@@ -17,7 +17,6 @@ class Carousel extends Component {
     const shouldResetIndex = currentIndex === lastIndex;
     const index =  shouldResetIndex ? 0 : currentIndex + 1;
     const round = shouldResetIndex ? currentRound + 1 : currentRound;
-    console.log(lastIndex, index, round, shouldResetIndex)
     this.setState({
       currentParticipantIndex: index,
       roundCount: round
@@ -25,11 +24,10 @@ class Carousel extends Component {
   }
   render() {
     var children = this.props.children;
-    console.log(children);
 
     return (
       <div className = "carousel">
-        <div className = 'round-tracker'><h3>Curent Round: {this.state.roundCount}</h3></div>
+        <div className = 'round-tracker'><h2>Curent Round: {this.state.roundCount}</h2></div>
         {children[this.state.currentParticipantIndex]}
         <div><button className='button' onClick = {this.nextTurn}>Next</button></div>
       </div>

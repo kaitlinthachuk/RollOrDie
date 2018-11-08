@@ -34,7 +34,6 @@ class EncounterManager extends Component {
       }
       return 0;
     })
-    console.log(totalList);
     return totalList;
   }
   render() {
@@ -68,6 +67,7 @@ class EncounterManager extends Component {
             "constitution": 15,
             "intelligence": 18,
             "wisdom": 15,
+            "charisma": 18,
             "constitution_save": 6,
             "intelligence_save": 8,
             "wisdom_save": 6,
@@ -199,7 +199,7 @@ class EncounterManager extends Component {
             generatedComponents.push( < Player name = {element.name} ac = {element.ac} key = {index}> < /Player>);
             }
             else
-              generatedComponents.push( < Monster details = {element} key = {index} > < /Monster>);
+              generatedComponents.push( < Monster monster = {element} key = {index} > < /Monster>);
               })
 
           return (

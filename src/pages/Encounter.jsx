@@ -11,7 +11,6 @@ class Encounter extends Component {
   }
   componentDidMount() {
     var recievedState = this.props.location.state;
-    console.log(recievedState);
     this.setState(recievedState)
   }
   render(){
