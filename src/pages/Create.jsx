@@ -7,6 +7,8 @@ import MonsterSelectionTile from '../components/MonsterSelectionTile.jsx';
 
 import '../styles/Create.scss';
 
+const API_BASE_URL = 'https://monsterserver.herokuapp.com/api/monsters/';
+
 class Create extends Component {
   constructor(props) {
     super(props);
@@ -25,12 +27,24 @@ class Create extends Component {
   componentDidMount() {
     let _monsters = sessionStorage.getItem('monsters');
     if (_monsters === null) {
-      fetch('http://www.dnd5eapi.co/api/monsters')
+      // Old Implementation using dnd5eapi.co 
+      // Deprecated
+      // fetch('http://www.dnd5eapi.co/api/monsters')
+      //   .then((res) => { return res.json()})
+      //   .then((response) => {
+      //     let monsters = response.results.map((monster) => {
+      //       monster.id = this.getMonsterId(monster);
+      //       return monster;
+      //     });
+      fetch(API_BASE_URL)
         .then((res) => { return res.json()})
-        .then((response) => {
-          let monsters = response.results.map((monster) => {
-            monster.id = this.getMonsterId(monster);
-            return monster;
+        .then((monsters) => {
+          monsters = monsters.map((monster) => {
+            return { 
+              id: monster["Index"],
+              name: monster["Name"],
+              url: API_BASE_URL + monster["Index"],
+            };
           });
           sessionStorage.setItem('monsters', JSON.stringify(monsters));
           this.setState({
@@ -54,7 +68,7 @@ class Create extends Component {
 
     let contents;
     if (isError) {
-      contents = <div>{error}</div>;
+      contents = <div>Something broke!</div>;
     } else {
       contents = this.buildMonsterList();
     }
@@ -100,13 +114,13 @@ class Create extends Component {
     let items = Object.keys(selectedMonsters).map((monsterId) => {
       let monster = selectedMonsters[monsterId];
       if ( monster.details != null) {
-        challengeRating += monster.details.challenge_rating * monster.count;
+        challengeRating += eval(monster.details.traits.challenge.split(' ')[0]) * monster.count;
       }
       return (
         <li>
           <span>{`${monster.count}x`}</span>
           <span>{`${monster.name}`}</span>
-          <span>{`${monster.details ? monster.details.challenge_rating * monster.count : 0}`}</span></li>
+          <span>{`${monster.details ? eval(monster.details.traits.challenge.split(' ')[0]) * monster.count : 0}`}</span></li>
       )
     });
     items.push(<li className='hline'></li>);
@@ -133,11 +147,12 @@ class Create extends Component {
       if (button === 'add') {
         selectedMonsters[monsterId] = {
           count  : 1,
-          name: monsters[monsterId - 1].name,
+          name: monsters[monsterId].name,
           details: null,
-          url: monsters[monsterId - 1].url,
+          // url: monsters[monsterId - 1].url,
+          url: API_BASE_URL + monsterId,
         };
-        this.fetchMonsterDetails(monsters[monsterId -1]);
+        this.fetchMonsterDetails(monsters[monsterId]);
       }
     } else {
       if (button === 'add') {
