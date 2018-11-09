@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+// styles
+import '../styles/AddPlayerForm.scss';
  
 class AddPlayerForm extends Component {
   constructor(props) {

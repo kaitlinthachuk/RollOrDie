@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import utils from '../utils.js';
 
 import Page from './Page.jsx';
 import SearchBar from '../components/SearchBar.jsx';
@@ -19,10 +20,12 @@ class Create extends Component {
       monsters        : [],
       selectedMonsters: {},
       searchTerm      : '',
+      saved           : false,
     };
 
     this.handleSearchChange     = this.handleSearchChange.bind(this);
     this.handleMonsterTileClick = this.handleMonsterTileClick.bind(this);
+    this.saveEncounter          = this.saveEncounter.bind(this);
   }
   componentDidMount() {
     let _monsters = sessionStorage.getItem('monsters');
@@ -64,7 +67,11 @@ class Create extends Component {
     }
   }
   render() {
-    const { isError, error, selectedMonsters } = this.state;
+    const { isError, selectedMonsters, saved } = this.state;
+
+    if (saved) {
+      return <Redirect to={{pathname: '/PlayerSelection', state: { monstersList: selectedMonsters}}} />
+    }
 
     let contents;
     if (isError) {
@@ -78,7 +85,8 @@ class Create extends Component {
         id='create-page'
         title='Monsters'
         leading={<Link to={'/encounters'}>Back</Link>}
-        trailing={<Link to={{pathname : '/PlayerSelection', state: { monsterList: selectedMonsters } }}>Next</Link>}>
+        trailing={<div onClick={this.saveEncounter}>Next</div>}>
+        <input id='title' ref='title' type='text' placeholder='Goblin Ambush...' />
         <SearchBar placeHolder={'Search for monster...'} onChange={this.handleSearchChange}/>
         <div id='monster-grid'>
           { contents }
@@ -190,6 +198,19 @@ class Create extends Component {
           error  : error,
         })
       });
+  }
+
+  saveEncounter() {
+    const { selectedMonsters } = this.state;
+    let newEncounter = {
+      name: this.refs.title.value || 'New Encounter',
+      selectedMonsters: selectedMonsters,   
+    };
+    utils.saveEncounterToStorage(newEncounter);
+
+    this.setState({
+      saved: true,
+    });
   }
 }
 

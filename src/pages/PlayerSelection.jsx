@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import utils from '../utils.js';
 import Page from './Page.jsx';
 import AddPlayerForm from '../components/AddPlayerForm.jsx';
+import ModalDialog from '../components/ModalDialog.jsx';
 
 import '../styles/PlayerSelection.scss'
 
@@ -12,9 +14,11 @@ class PlayerSelection extends Component {
     this.state = {
       playerList: [], 
       monsterList: [],
+      pickParty: false,
     };
     this.handlePlayerAdd = this.handlePlayerAdd.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
+    this.handleAddPartyClick = this.handleAddPartyClick.bind(this);
   }
   componentDidMount() {
     var recievedMonsters = this.props.location.state.monsterList;
@@ -44,7 +48,7 @@ class PlayerSelection extends Component {
   }
 
   render() {
-    const { playerList } = this.state;
+    const { playerList, pickParty } = this.state;
     let players = playerList.map((player, index) => {
       return (<PlayerComponent 
         playerName={player.name} 
@@ -58,14 +62,43 @@ class PlayerSelection extends Component {
     return (
       <Page
         id='player-selection-page'
-        leading={<Link to={'/New'}>Back</Link>}
+        leading={<Link to={'/encounters/new'}>Back</Link>}
         trailing={<Link to={{pathname: '/Encounter', state : this.state} }>Next</Link>}>
-        <AddPlayerForm onPlayerAdd = {this.handlePlayerAdd} />
+        <ModalDialog show={pickParty} onEsc={this.handleAddPartyClick}>
+          <ul>
+          {utils.getPartiesFromStorage(true).map((party) => {
+            return this.PartyPicker(party);
+          })}
+          </ul>
+        </ModalDialog>
+        <AddPlayerForm onPlayerAdd={this.handlePlayerAdd} />
+        <button onClick={this.handleAddPartyClick}>Add Party</button>
         <div id ="added-players-container">
           {players}
         </div>
       </Page>
     );
+  }
+
+  handleAddPartyClick() {
+    const { pickParty } = this.state;
+    this.setState({
+      pickParty: !pickParty,
+    });
+  }
+
+  addParty(party) {
+    const { pickParty, playerList } = this.state;
+    this.setState({
+      pickParty: !pickParty,
+      playerList: [...party.players, ...playerList],
+    })
+  }
+
+  PartyPicker(party) {
+    return (
+      <li onClick={() => this.addParty(party)}>{party.title}</li>
+    )
   }
 }
 

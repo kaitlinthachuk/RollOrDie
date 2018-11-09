@@ -1,25 +1,21 @@
+@import './vars';
+
 #create-party-page {
   position: relative;
+  padding: 1rem;
 
   #build-party-header {
     display: flex;
-    justify-content: space-between;
-  }
+    align-items: center;
 
-  .modal-dialog {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.4);
-
-    .add-player-form {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      height: 200px;
+    #title {
+      flex: 1;
+      background: none;
+      line-height: 3rem;
+      padding: 1rem;
+      font-size: 2rem;
+      color: $primary-text;
+      border: none;
     }
   }
 }

@@ -26,23 +26,51 @@
   }
 
   .page {
+    position: relative;
     grid-area: main-center;
     background: $secondary-color;
-    height: calc(100vh - 2* #{$navbar-height  });
+    height: calc(100vh - 2* #{$navbar-height});
     overflow: auto;
     display: flex;
     flex-direction: column;
     z-index: 0;
+    box-shadow: 0 0 5rem rgba(0,0,0,0.8);
   }
 
-  a, a:visited {
+  a, a:visited, a:active {
     color: inherit;
     text-decoration: none;
+    outline: none;
   }
 
   ul {
     list-style: none;
     padding: 0;
+  }
+
+  button {
+    line-height: 2rem;
+    font-size: 1.4rem;
+    padding: 0.5rem;
+    width: fit-content;
+    outline: none;
+    cursor: pointer;
+    background: $primary-color;
+    border: none;
+    color: $primary-text;
+    font-weight: bold;
+    border-radius: $border-radius;
+    transition: background-color 0.5s ease-out;
+  }
+
+  button:hover {
+    background-color: $secondary-color;
+  }
+
+  input, input:focus {
+    border-radius: $border-radius;
+    border: none;
+    outline: none;
   }
 }
 

@@ -15,16 +15,18 @@
     justify-content: center;
 
     &:first-child {
-      justify-content: start;
+      justify-content: flex-start;
     }
 
     &:last-child {
-      justify-content: end;
+      justify-content: flex-end;
     }
 
 
     .nav-button {
-      padding: 0.5rem;
+      padding: 1rem;
+      font-weight: bold;
+      cursor: pointer;
     }
   }
 }

@@ -3,6 +3,17 @@
 #create-page {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  
+  #title {
+    background: none;
+    line-height: 3rem;
+    padding: 1rem;
+    font-size: 2rem;
+    color: $primary-text;
+    border: none;
+  }
+
   #monster-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, 10rem);
@@ -12,6 +23,7 @@
     grid-row-gap: 1rem;
     overflow-y: auto;
   }
+  
   #bottom-sheet {
     margin-top: auto;
     text-align: left;
