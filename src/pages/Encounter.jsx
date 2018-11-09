@@ -17,6 +17,7 @@ class Encounter extends Component {
     return (
       <Page
         id='encounter-page'
+        title = "Encounter"
         leading={<Link to={'/PlayerSelection'}>Back</Link>}
         trailing={<Link to={'/'}>Next</Link>}>
       <EncounterManager playerList = {this.state.playerList} monsterList = {this.state.monsterList}></EncounterManager>
