@@ -1,7 +1,8 @@
-$primary-color: rgba(110,130,100,0.8);
+$primary-color: hsl(100, 5%, 50%);
 $secondary-color: lighten($primary-color, 10);
 $primary-text: white;
 $secondary-text: black;
+$global-backdrop: hsl(211, 11%, 10%);
 
 // NAVBAR VARIABLES
 $navbar-height: 3rem;

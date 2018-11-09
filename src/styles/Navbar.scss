@@ -5,11 +5,27 @@
   height: $navbar-height;
   background-color: $primary-color;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.4), 0 6px 12px rgba(0,0,0,0.2);
+  z-index: 1;
 
-  .nav-button {
-    padding: 0.5rem;
+  .navbar-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    &:first-child {
+      justify-content: start;
+    }
+
+    &:last-child {
+      justify-content: end;
+    }
+
+
+    .nav-button {
+      padding: 0.5rem;
+    }
   }
 }
 
