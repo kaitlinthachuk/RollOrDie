@@ -15,7 +15,7 @@ class MonsterSelectionTile extends Component {
         <div className='monster-name'>{name}</div>
         <div className='remove-btn' onClick={() => { onClick(id, 'remove')}}>-</div>
         <div className='count'>{count}</div>
-        <div classname='add-btn'onClick={() => { onClick(id, 'add')}}>+</div>
+        <div className='add-btn'onClick={() => { onClick(id, 'add')}}>+</div>
       </div>
     );
   }

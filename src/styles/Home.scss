@@ -1,0 +1,62 @@
+@import 'vars';
+
+#home-page {
+  a {
+    width: 100%;
+    cursor: pointer;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    &:after {
+      content: '';
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+      background-size: cover;
+      filter: opacity(0.8);
+      z-index:-1;
+      transition: transform 0.2s ease-out;
+    }
+    
+    h2 {
+      padding: 3rem;
+      background-color: $primary-color;
+      width: auto;
+      border-radius: 0.2rem;
+    }
+
+    &#parties-jumbo {
+        &::after {
+          // https://www.deviantart.com/stephen-0akley/art/DnD-Group-Lineup-734138337
+          background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url('../party.jpg');
+          background-position: top;
+        }
+
+        &:hover::after {
+          transform: scale(1.1);
+        }
+    }
+
+    &#encounters-jumbo {
+      &::after {
+        // https://www.deviantart.com/conceptopolis/art/Forgotten-Realms-Monsters-zoom-3-348998828
+        background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url('../encounter.jpg');
+        background-position-y: 85%;
+      }
+
+      &:hover::after {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+
+}

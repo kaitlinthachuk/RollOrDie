@@ -4,12 +4,12 @@ import '../styles/Navbar.scss';
 
 class Navbar extends Component {
   render() {
-    const { leading, trailing } = this.props;
+    const { leading, trailing, title } = this.props;
     return (
       <div className='navbar'>
-        <div className='nav-button'>{leading}</div>
-        <h2>Title</h2>
-        <div className='nav-button'>{trailing}</div> 
+        <div className='navbar-box'><div className='nav-button'>{leading}</div></div>
+        <div className='navbar-box'><h2>{title}</h2></div>
+        <div className='navbar-box'><div className='nav-button'>{trailing}</div></div>
       </div>
     );
   }
