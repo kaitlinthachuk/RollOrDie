@@ -15,7 +15,7 @@ class MonsterTraits extends Component {
 
     return (
       <div>
-      <h3>Monster Traits</h3>
+      <h4>Monster Traits</h4>
       {this.extractTraits(traits, p.highlightText, p.capitalize)}
       </div>
     );
