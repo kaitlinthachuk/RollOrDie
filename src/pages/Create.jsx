@@ -127,13 +127,12 @@ class Create extends Component {
       }
       return (
         <li>
-          <span>{`${monster.count}x`}</span>
-          <span>{`${monster.name}`}</span>
+          <span>{`${monster.count}x ${monster.name}`}</span>
           <span>{`${monster.details ? eval(monster.details.traits.challenge.split(' ')[0]) * monster.count : 0}`}</span></li>
       )
     });
     items.push(<li className='hline'></li>);
-    items.push(<li className='total'><span>Total</span><span>{`${challengeRating}`}</span></li>)
+    items.push(<li className='total'><h3>Total XP</h3><h3>{`${challengeRating}`}</h3></li>)
     return items;
   }
 

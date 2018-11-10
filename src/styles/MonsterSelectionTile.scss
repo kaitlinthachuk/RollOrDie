@@ -1,6 +1,7 @@
 @import 'vars';
 
 .monster-selection-tile {
+  padding: 1rem;
   display: grid;
   grid-template: 
   "name name name"
@@ -8,9 +9,11 @@
   background-color: $primary-color;
   cursor: pointer;
   border-radius: 0.2rem;
+  align-items: center;
+  align-content: space-evenly;
 
   &.selected {
-    background-color: darken($primary-color, 30);
+    background-color: darken($primary-color, 20);
   }
 
   .monster-name {

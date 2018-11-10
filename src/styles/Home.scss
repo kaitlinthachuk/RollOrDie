@@ -26,9 +26,9 @@
       transition: transform 0.2s ease-out;
     }
     
-    h2 {
+    h1 {
       padding: 3rem;
-      background-color: $primary-color;
+      background-color: transparentize($primary-color, 0.2);
       width: auto;
       border-radius: 0.2rem;
     }
@@ -36,7 +36,7 @@
     &#parties-jumbo {
         &::after {
           // https://www.deviantart.com/stephen-0akley/art/DnD-Group-Lineup-734138337
-          background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url('../party.jpg');
+          background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url('../images/party.jpg');
           background-position: top;
         }
 
@@ -48,7 +48,7 @@
     &#encounters-jumbo {
       &::after {
         // https://www.deviantart.com/conceptopolis/art/Forgotten-Realms-Monsters-zoom-3-348998828
-        background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url('../encounter.jpg');
+        background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url('../images/encounter.jpg');
         background-position-y: 85%;
       }
 

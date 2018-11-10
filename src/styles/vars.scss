@@ -12,7 +12,15 @@ $grid-template-areas:
 'top-left top-center top-right'
 'main-left main-center main-right'
 'bottom-left bottom-center bottom-right';
-$grid-template-columns: 20% auto 20%;
+$grid-template-columns: auto minmax(720px, 66.66%) auto;
 $grid-template-rows: $navbar-height auto $navbar-height;
 
 $border-radius: 0.2rem;
+
+// Font
+@import url('https://fonts.googleapis.com/css?family=Carrois+Gothic+SC|Open+Sans');
+
+$normal: 1rem;
+$taller: 1.4rem;
+$tallest: 2rem;
+$huge: 2.4rem;

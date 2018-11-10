@@ -12,8 +12,8 @@ class Home extends Component {
         id='home-page'
         title='Roll Or Die'
       >
-          <Link id='parties-jumbo' to={'/parties'}><h2 className='tile'>Parties</h2></Link>
-          <Link id='encounters-jumbo' to={'/encounters'}><h2 className='tile'>Encounters</h2></Link>
+          <Link id='parties-jumbo' to={'/parties'}><h1 className='tile'>Parties</h1></Link>
+          <Link id='encounters-jumbo' to={'/encounters'}><h1 className='tile'>Encounters</h1></Link>
       </Page>
     );
   }

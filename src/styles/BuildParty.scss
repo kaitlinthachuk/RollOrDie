@@ -18,4 +18,59 @@
       border: none;
     }
   }
+
+  .player-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 15rem);
+    grid-template-rows: repeat(auto-fit, 15rem);
+    grid-gap: 0.5rem;
+    flex: 1;
+    align-content: center;
+    justify-content: center;
+    z-index: 0;
+
+    .player-card {
+      font-size: $taller;
+      background-color: $primary-color;
+      border-radius: $border-radius;
+      padding: 1rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      
+      span, i {
+        padding-right: 1rem;
+      }
+
+      .delete-icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 0.5rem;
+        line-height: 1rem;
+        display: hidden;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
+      &:hover .delete-icon {
+        display: block;
+        opacity: 1;
+      }
+    }
+  }
+
+  .armor-icon{
+    content: url('../images/armor.svg');
+    height: $taller;
+    vertical-align: top;
+  }
+
+  .initiative-icon {
+    content: url('../images/initiative.svg');
+    height: $taller;
+    vertical-align: top;
+  }
 }
