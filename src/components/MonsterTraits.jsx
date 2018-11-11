@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class MonsterTraits extends Component {
   extractTraits(traits, highlightText, capitalize){
     var pContent = [];
-    Object.entries(traits).forEach(function(trait) {
+    Object.entries(traits).forEach(function(trait, index) {
       if(trait[0] !== "challenge"){
-      pContent.push(<p>{highlightText(capitalize(trait[0]))} : {trait[1]} </p>);
+      pContent.push(<p key = {index}>{highlightText(capitalize(trait[0]))} : {trait[1]} </p>);
     }});
       return pContent;
   }

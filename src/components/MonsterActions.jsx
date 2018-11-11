@@ -14,64 +14,66 @@ class MonsterActions extends Component {
     var content = [];
     var highlightText = this.highlightText;
     var capitalize = this.capitalize;
-    actions.forEach(function(action){
+
+    actions.forEach(function(action, index){
       if(action.name === "Multiattack") {
-        content.unshift(<p>{highlightText("Multiattack")} : {action.description}</p>)
+        content.unshift(<p key = {index}>{highlightText("Multiattack")} : {action.description}</p>)
       }
       else if (action.name && !action["damage-die"]) {
-          content.push(<p>{highlightText(capitalize(action.name))} : {action.description}</p>);
+          content.push(<p key = {index}>{highlightText(capitalize(action.name))} : {action.description}</p>);
         }
       else {
-        content.push(<p>{highlightText(capitalize(action.name))}: {action.description}</p>);
+        content.push(<p key = {index}>{highlightText(capitalize(action.name))}: {action.description}</p>);
         var spanContent = [];
-        Object.entries(action).forEach(function(entry) {
+        Object.entries(action).forEach(function(entry, index) {
           if(entry[0] !== "name" && entry[0] !== "description") {
-          spanContent.push(<span>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
+          spanContent.push(<span key = {index + 200}>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
         }
       });
-          content.push(<p>{spanContent}</p>);
+          content.push(<p key = {index + 100}>{spanContent}</p>);
       }
+
     });
 
-    return (<div className = "actions">{content}</div>);
+    return (<div key = "1000" className = "actions">{content}</div>);
   }
   processLegendaryActions(actions){
     var content = [];
     var highlightText = this.highlightText;
     var capitalize = this.capitalize;
 
-    actions.forEach(function(action){
+    actions.forEach(function(action, index){
       if(action.name === "General"){
-        content.unshift(<p>{action.description}</p>)
+        content.unshift(<p key = {index}>{action.description}</p>)
       } else {
-        content.push(<p>{highlightText(capitalize(action.name))}: {action.description}</p>);
+        content.push(<p key = {index}>{highlightText(capitalize(action.name))}: {action.description}</p>);
         var spanContent = [];
-        Object.entries(action).forEach(function(entry) {
+        Object.entries(action).forEach(function(entry, index) {
           if(entry[0] !== "name" && entry[0] !== "description") {
-          spanContent.push(<span>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
+          spanContent.push(<span key = {index + 200}>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
         }
       });
-          content.push(<p>{spanContent}</p>);
+          content.push(<p key = {index + 100}>{spanContent}</p>);
       }
 
     });
-    return (<p><h4>Legendary Actions</h4>{content}</p>);
+    return (<div key = "1001" className = "legendary-actions"><h4>Legendary Actions</h4>{content}</div>);
   }
   processPassiveActions(actions){
     var content = [];
     var highlightText = this.highlightText;
     var capitalize = this.capitalize;
-      actions.forEach(function(action){
-    content.push(<p>{highlightText(capitalize(action.name))}: {action.description}</p>);
+    actions.forEach(function(action, index){
+    content.push(<p key = {index}>{highlightText(capitalize(action.name))}: {action.description}</p>);
     var spanContent = [];
-    Object.entries(action).forEach(function(entry) {
+    Object.entries(action).forEach(function(entry, index) {
       if(entry[0] !== "name" && entry[0] !== "description") {
-      spanContent.push(<span>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
+      spanContent.push(<span key = {index}>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
     }
   });
-      content.push(<p>{spanContent}</p>);
+      content.push(<p key = {index + 100}>{spanContent}</p>);
     });
-    return (<p><h4>Extras</h4>{content}</p>);
+    return (<div key = "1002" className = "extras"><h4>Extras</h4>{content}</div>);
   }
   extractActions(actions){
     var content = [];
@@ -98,7 +100,7 @@ class MonsterActions extends Component {
     this.capitalize = p.capitalize;
 
     return (
-      <div>
+      <div className = "actions-container">
       <h4>Actions</h4>
       {this.extractActions(actions)}
       </div>

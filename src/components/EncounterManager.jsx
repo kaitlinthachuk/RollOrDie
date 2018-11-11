@@ -226,7 +226,6 @@ class EncounterManager extends Component {
     }
 
     monsterList = this.generateMonsterInitiatives(monsterList);
-    console.log(monsterList);
     this.rankedList = this.getIntiativeRanking(monsterList, playerList);
 
     this.setState({
@@ -236,7 +235,20 @@ class EncounterManager extends Component {
 
   }
   updateHp(newHp, monsterIndex, monsterName){
-    console.log("will fill this in at later date");
+    var monsterList = this.state.monsterList
+    var monsterListArray = Object.entries(monsterList);
+
+    for(var i = 0; i < monsterListArray.length; i ++){
+      var monsterObj = monsterListArray[i][1];
+      if(monsterObj.name === monsterName){
+        monsterObj.hpList[monsterIndex] = newHp;
+        monsterList[i + 1] = monsterObj;
+        break;
+      }
+    }
+    this.setState({
+      monsterList : monsterList
+    });
   }
   generateMonsterInitiatives(monsterList) {
     Object.entries(monsterList).forEach(function(monster, index, monsterList) {
@@ -268,11 +280,9 @@ class EncounterManager extends Component {
       }
       return 0;
     })
-    console.log(totalList);
     return totalList;
   }
   render() {
-    console.log(this.state.monsterList);
       var generatedComponents = [];
       var rankedList = this.rankedList;
       var updateHp = this.updateHp;
