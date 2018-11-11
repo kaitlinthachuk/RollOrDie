@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
-import Player from './Player.jsx';
-import Monster from './Monsters.jsx';
-import Carousel from './Carousel.jsx';
+import Player from '../components/Player.jsx';
+import Monster from '../components/Monsters.jsx';
+import Carousel from '../components/Carousel.jsx';
+import DmSidebar from '../components/DmSidebar.jsx';
+import Page from './Page.jsx';
+import { Link } from "react-router-dom";
+
 import '../styles/EncounterManager.scss';
 
 class EncounterManager extends Component {
@@ -296,9 +300,14 @@ class EncounterManager extends Component {
               })
 
           return (
-            <div className = 'encounter-container' >
-            <Carousel children = {generatedComponents}></Carousel>
-            </div>
+            <Page
+              id='encounter-page'
+              title = "Encounter"
+              leading={<Link to={'/PlayerSelection'}>Back</Link>}
+              trailing={<Link to={'/'}>Next</Link>}>
+              <Carousel children = {generatedComponents}></Carousel>
+              <DmSidebar rankedList = {rankedList} updateHp = {this.updateHp}></DmSidebar>
+          </Page>
           );
         }
       }
