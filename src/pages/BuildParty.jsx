@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
 import utils from '../utils.js';
 
-
 import Page from './Page.jsx';
 
 import AddPlayerForm from '../components/AddPlayerForm.jsx';
@@ -26,6 +25,7 @@ class BuildParty extends Component {
     this.savePlayer        = this.savePlayer.bind(this);
     this.saveParty         = this.saveParty.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.deletePlayer      = this.deletePlayer.bind(this);
   }
   render() {
     const { showModal, saved, party } = this.state;
@@ -48,18 +48,31 @@ class BuildParty extends Component {
           <input id='title' type="text" value={party.title} onChange={this.handleTitleChange} placeholder='The Fellowship...'/>
           <button onClick={this.addPlayer}>Add Player</button>
         </div>
-        <div>
           { this.buildPlayerList() }
-        </div>
     </Page>
     );
   }
 
   buildPlayerList() {
     const { players } = this.state.party;
-    return players.map((player, index) => {
-      return <div key={index}>{player.name}</div>;
-    });
+    return (
+      <div className='player-grid'>
+        { 
+        players.map((player, index) => {
+          return (
+            <div key={index} className='player-card'>
+              <div className='delete-icon' onClick={() => this.deletePlayer(player)}>X</div>
+              <h2>{player.name}</h2>
+              <div>
+              <span><i className='armor-icon'></i>{player.ac}</span>
+              <span><i className='initiative-icon'></i>{player.initiative}</span>
+              </div>
+            </div>
+          );
+        })
+        }
+      </div>
+    );
   }
 
   saveParty() {
@@ -91,6 +104,14 @@ class BuildParty extends Component {
     this.setState({
       party: party,
       showModal: false,
+    });
+  }
+
+  deletePlayer(player) {
+    const { party } = this.state;
+    party.players = party.players.filter((_player) => _player.name !== player.name);
+    this.setState({
+      party: party,
     });
   }
 }

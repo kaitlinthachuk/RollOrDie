@@ -15,7 +15,9 @@ class ModalDialog extends Component {
       document.addEventListener("keydown", this.handleKeyDown, false);
       return (
       <div className='modal-dialog'>
-        {this.props.children}
+        <div className='children-wrapper'>
+          {this.props.children}
+        </div>
       </div>
       )
     } else {

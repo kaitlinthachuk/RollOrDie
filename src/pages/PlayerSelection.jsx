@@ -65,7 +65,7 @@ class PlayerSelection extends Component {
         leading={<Link to={'/encounters/new'}>Back</Link>}
         trailing={<Link to={{pathname: '/Encounter', state : this.state} }>Next</Link>}>
         <ModalDialog show={pickParty} onEsc={this.handleAddPartyClick}>
-          <ul>
+          <ul className='party-picker'>
           {utils.getPartiesFromStorage(true).map((party) => {
             return this.PartyPicker(party);
           })}
@@ -97,7 +97,7 @@ class PlayerSelection extends Component {
 
   PartyPicker(party) {
     return (
-      <li onClick={() => this.addParty(party)}>{party.title}</li>
+      <li onClick={() => this.addParty(party)}><h3>{party.title}</h3></li>
     )
   }
 }

@@ -1,13 +1,26 @@
 @import "vars";
 
-.player-card {
-  height: 100px;
-  width: 300px;
-  text-align: left;
-  margin: auto;
-  background: $primary-color;
-}
+#player-selection-page {
 
-button {
-  align-self: center;
+  .party-picker {
+    li {
+      background-color: $secondary-color;
+      cursor: pointer;
+      border-radius: $border-radius;
+      padding: 1rem;
+      margin: 0.5rem;
+    }
+  }
+
+  .player-card {
+    height: 100px;
+    width: 300px;
+    text-align: left;
+    margin: auto;
+    background: $primary-color;
+  }
+
+  button {
+    align-self: center;
+  }
 }

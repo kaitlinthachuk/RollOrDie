@@ -3,6 +3,7 @@
 .App {
   text-align: center;
   color: $primary-text;
+  font-family: 'Open Sans', sans-serif;
   
   .layout{
   // Setting up grid layout
@@ -71,6 +72,27 @@
     border-radius: $border-radius;
     border: none;
     outline: none;
+  }
+
+  h3 {
+    font-size: $taller;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: $tallest;
+    font-weight: 800;
+  }
+
+  h1 {
+    font-size: $huge;
+    font-weight: 900;
+  }
+
+  h1,h2,h3 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Carrois Gothic SC', sans-serif;
   }
 }
 
