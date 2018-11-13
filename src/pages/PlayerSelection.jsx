@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import utils from '../utils.js';
+import { storage } from '../utils.js';
 import Page from './Page.jsx';
 import AddPlayerForm from '../components/AddPlayerForm.jsx';
 import ModalDialog from '../components/ModalDialog.jsx';
@@ -9,17 +9,27 @@ import '../styles/PlayerSelection.scss'
 
 
 class PlayerSelection extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       playerList: [], 
       monsterList: [],
       pickParty: false,
     };
+
+    
+    if (props.location && props.location.state && props.location.state.encounter) {
+      this.state.encounter = props.location.state.encounter;
+    } else {
+      throw new Error('No encounter passed to /PlayerSelection!');
+    }
+
     this.handlePlayerAdd = this.handlePlayerAdd.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
     this.handleAddPartyClick = this.handleAddPartyClick.bind(this);
   }
+
   componentDidMount() {
     var recievedMonsters = this.props.location.state.monsterList;
     console.log(recievedMonsters);
@@ -28,6 +38,7 @@ class PlayerSelection extends Component {
       monsterList : recievedMonsters
     })
   }
+
   deleteOnClick(e){
     e.preventDefault();
     var playerContainer = e.target.parentElement.parentElement;
@@ -48,7 +59,7 @@ class PlayerSelection extends Component {
   }
 
   render() {
-    const { playerList, pickParty } = this.state;
+    const { playerList, pickParty, encounter } = this.state;
     let players = playerList.map((player, index) => {
       return (<PlayerComponent 
         playerName={player.name} 
@@ -62,11 +73,11 @@ class PlayerSelection extends Component {
     return (
       <Page
         id='player-selection-page'
-        leading={<Link to={'/encounters/new'}>Back</Link>}
+        leading={<Link to={{ pathname:'/encounters/new', state: { encounter }}}>Back</Link>}
         trailing={<Link to={{pathname: '/Encounter', state : this.state} }>Next</Link>}>
         <ModalDialog show={pickParty} onEsc={this.handleAddPartyClick}>
           <ul className='party-picker'>
-          {utils.getPartiesFromStorage(true).map((party) => {
+          {storage.getPartiesFromStorage(true).map((party) => {
             return this.PartyPicker(party);
           })}
           </ul>

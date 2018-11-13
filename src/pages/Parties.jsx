@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
-import utils from '../utils.js';
+import { storage } from '../utils.js';
 
 import Page from './Page.jsx';
+import CardListView from '../components/CardListView.jsx';
+
 
 // styles
 import '../styles/Parties.scss';
@@ -10,16 +12,17 @@ import '../styles/Parties.scss';
 class Parties extends Component {
   constructor(props) {
     super(props);
-    this.savedParties = utils.getPartiesFromStorage();
-    this.handlePartyClick = this.handlePartyClick.bind(this);
+    this.handlePartyClick  = this.handlePartyClick.bind(this);
+    this.handleRemoveParty = this.handleRemoveParty.bind(this);
 
     this.state = {
       selectedParty: null,
+      savedParties: storage.getPartiesFromStorage(),
     }
   }
 
   render() {
-    const { selectedParty } = this.state;
+    const { selectedParty, savedParties } = this.state;
     if (selectedParty) {
       return <Redirect to={{pathname: '/parties/new', state: this.state}} />
     }
@@ -31,31 +34,37 @@ class Parties extends Component {
         leading={<Link to={'/'}>Back</Link>}
         trailing={<Link to={'/parties/new'}>Add Party</Link>}
         >
-        <ul>
-          { 
-            Object.values(this.savedParties).map((party) => {
-              return this.PartyCard(party)
-            })
-          }
-        </ul>
+        <CardListView
+          listItems    = {Object.values(savedParties)}
+          className    = 'party-card'
+          onCardClick  = {this.handlePartyClick}
+          onCardDelete = {this.handleRemoveParty}
+          render       = {(party) => {
+            return (
+                <div>
+                  <h2>{party.title}</h2>
+                  <div>{party.players.reduce((acc, player) => { return acc += player.name + ', '}, '')}</div>
+                </div>
+              );
+            }}
+          />
       </Page>
     );
-  }
-
-  PartyCard(party) {
-    const { title, players } = party;
-    return (
-      <li className='party-card' onClick={() => this.handlePartyClick(party)}>
-        <h2>{title}</h2>
-        <div>{players.reduce((acc, player) => { return acc += player.name + ', '}, '')}</div>
-      </li>
-    )
   }
 
   handlePartyClick(party) {
     this.setState({
       selectedParty: party,
     })
+  }
+
+  handleRemoveParty(party) {
+    let success = storage.removePartyFromStorage(party);
+    if (success) {
+      this.setState({
+        savedParties: storage.getPartiesFromStorage(),
+      })
+    }
   }
 }
 

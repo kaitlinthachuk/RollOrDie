@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
-import utils from '../utils.js';
+import { storage } from '../utils.js';
 
 import Page from './Page.jsx';
 
@@ -77,7 +77,7 @@ class BuildParty extends Component {
 
   saveParty() {
     const { party } = this.state;  
-    utils.savePartyToStorage(party);
+    storage.savePartyToStorage(party);
     this.setState({
       saved: true,
     });

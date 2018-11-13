@@ -4,6 +4,10 @@ import '../styles/MonsterSelectionTile.scss';
 
 class MonsterSelectionTile extends Component {
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.count !== nextProps.count;
+  }
+
   render() {
     const { name, count, id, onClick } = this.props;
 

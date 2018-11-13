@@ -1,0 +1,8 @@
+#monster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 10rem);
+  grid-auto-rows: 10rem;
+  justify-content: center;
+  grid-gap: 0.5rem;
+  overflow-y: auto;
+}

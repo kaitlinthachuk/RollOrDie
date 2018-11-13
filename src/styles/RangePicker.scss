@@ -1,0 +1,42 @@
+@import './vars';
+
+.range-picker {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  user-select: none;
+
+  label {
+    display: inline-block;
+    position: relative;
+    line-height: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    z-index: 0;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    input ~ .radio-btn {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: none;
+      z-index: -1;
+      border-radius: $border-radius;
+
+    }
+
+    input:checked ~ .radio-btn {
+      background-color: $primary-color;
+    }
+  }
+}

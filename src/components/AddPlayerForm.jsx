@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RangePicker from './RangePicker';
 
 // styles
 import '../styles/AddPlayerForm.scss';
@@ -12,14 +13,15 @@ class AddPlayerForm extends Component {
     this.state = {
       validationHint: "",
       validationError: false,
-      name: null,
-      ac: null,
-      initiative: null,
+      name: '',
     }
   }
 
   handleChange({ target }) {
-    this.setState({ [target.name]: target.value });
+    const { name } = this.state;
+    if (name.length > target.value.length || target.value.match(/\w+/g)) {
+      this.setState({ [target.name]: target.value });
+    }
   }
 
   onFormSubmit(event){
@@ -28,37 +30,20 @@ class AddPlayerForm extends Component {
         { validationError, validationHint } = this.state;
 
     event.preventDefault();
-    
+
     let playerName = target.name.value,
-        ac         = target.ac.value,
-        init       = target.initiative.value,
+        ac         = parseInt(target.ac.value),
+        init       = parseInt(target.init.value),
         newPlayer  = {};
 
     validationError = false;
     validationHint  = "";
 
-    if (playerName.length > 0) {
-      target.name.value = "";
-      newPlayer.name = playerName;
+    if (playerName.match(/\w+/g)) {
+      newPlayer.name = playerName.trim();
     } else {
       validationError = true;
       validationHint  += "Name cannot be empty. "
-    }
-
-    if (ac >= 10 && ac < 25) {
-      target.ac.value = "";
-      newPlayer.ac = ac;
-    } else {
-      validationError  = true;
-      validationHint  += "Armor class must be between 10 and 25. "
-    }
-
-    if (init > 0) {
-      target.initiative.value = "";
-      newPlayer.initiative = init;
-    } else {
-      validationError = true;
-      validationHint += "Initiative cannot be negative."
     }
 
     this.setState(newPlayer);
@@ -69,23 +54,34 @@ class AddPlayerForm extends Component {
         validationHint : validationHint,
       })
     } else {
-      this.setState({
-        name      : null,
-        ac        : null,
-        initiative: null,
+      onPlayerAdd({
+        name: newPlayer.name,
+        ac: ac,
+        initiative: init,
       });
-      onPlayerAdd(newPlayer);
     }
   }
 
   render() {
-    let { validationError, validationHint, name, ac, initiative } = this.state;
+    let { validationError, validationHint, name } = this.state;
     let { cancelButton, onCancel } = this.props;
     return (
-      <form className="add-player-form" onSubmit={this.onFormSubmit}>
-        <input type =  "text"  name = "name"       placeholder = "Bilbo Baggins..." value={name} onChange={this.handleChange}/>
-        <input type = "number" name = "ac"         placeholder= "18..." value={ac} onChange={this.handleChange}/>
-        <input type = "number" name = "initiative" placeholder = "1..." value={initiative} onChange={this.handleChange}/>
+      <form className="add-player-form" onSubmit={this.onFormSubmit} noValidate>
+        <input 
+          type="text"
+          name="name"
+          placeholder="Bilbo Baggins..."
+          value={name}
+          onChange={this.handleChange}
+          />
+        <label><i className='ac-icon'></i>{'(Armor Class)'}</label>
+        <RangePicker 
+          id={'ac-picker'}
+          min={10}
+          max={20}
+          buttonName={'ac'} />
+        <label><i className='init-icon'></i>{'(Initiative)'}</label>
+        <RangePicker id={'init-picker'} min={0} max={5} buttonName={'init'}/>
         { validationError ? <div className='validation-hint'>{validationHint}</div> : null }
         <button>Add Player</button>
         { cancelButton ? 

@@ -1,0 +1,28 @@
+@import './vars';
+
+.card-list-view {
+
+  .list-view-card {
+    position        : relative;
+    text-align      : left;
+    padding         : 2rem;
+    background-color: $primary-color;
+    border-radius   : $border-radius;
+    margin-bottom   : 1rem;
+    cursor          : pointer;
+
+    .delete-icon {
+      position   : absolute;
+      right      : 0;
+      top        : 0;
+      padding    : 1rem;
+      opacity    : 0;
+      font-weight: bold;
+      transition : opacity 0.2s linear;
+    }
+
+    &:hover .delete-icon {
+      opacity: 1;
+    }
+  }
+}
