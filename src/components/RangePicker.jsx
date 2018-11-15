@@ -10,7 +10,7 @@ class RangePicker extends PureComponent {
     for(let i = min; i <= max; i++) {
       options.push(
         <label>
-          <input type='radio' checked={ i === min ? 'checked' : ''} name={buttonName} value={i}/>
+          <input type='radio' checked='checked' name={buttonName} value={i}/>
           <span className='radio-btn'>
           </span>
         { '' + i } 
