@@ -39,8 +39,9 @@
 
     .left-side-bar {
       grid-area: main-left;
-      align-self: center;
+      /*align-self: center;*/
       justify-self: flex-end;
+      overflow-y: scroll;
       z-index: 1;
     }
 

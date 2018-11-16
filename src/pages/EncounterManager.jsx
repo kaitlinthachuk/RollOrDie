@@ -3,6 +3,7 @@ import Player from '../components/Player.jsx';
 import Monster from '../components/Monsters.jsx';
 import Carousel from '../components/Carousel.jsx';
 import DmSidebar from '../components/DmSidebar.jsx';
+import RoundCounter from '../components/RoundCounter.jsx';
 import Page from './Page.jsx';
 import { Link } from "react-router-dom";
 
@@ -18,6 +19,7 @@ class EncounterManager extends Component {
 
     this.rankedList = [];
     this.updateHp = this.updateHp.bind(this);
+    this.updateConsciousness = this.updateConsciousness.bind(this);
   }
   componentDidMount() {
     //var recievedMonsters = this.props.location.state.monsterList;
@@ -238,6 +240,21 @@ class EncounterManager extends Component {
     })
 
   }
+  updateConsciousness(name){
+    var playerList = this.state.playerList;
+    console.log(name);
+
+    for(var i = 0; i < playerList.length; i++){
+      if(playerList[i].name === name){
+        playerList[i].unconscious = !playerList[i].unconscious;
+      }
+    }
+    console.log(playerList);
+
+    this.setState({
+      playerList : playerList
+    })
+  }
   updateHp(newHp, monsterIndex, monsterName) {
     var monsterList = this.state.monsterList
     var monsterListArray = Object.entries(monsterList);
@@ -269,6 +286,7 @@ class EncounterManager extends Component {
     var i;
     for (i = 0; i < playerList.length; i++) {
       playerList[i].participant = 'player';
+      playerList[i].unconscious = false;
     }
     var totalList = playerList;
     Object.entries(monsterList).forEach(function (monster) {
@@ -290,10 +308,12 @@ class EncounterManager extends Component {
     var generatedComponents = [];
     var rankedList = this.rankedList;
     var updateHp = this.updateHp;
+    var updateConsciousness = this.updateConsciousness;
 
     rankedList.forEach(function (element, index) {
       if (element.participant === 'player') {
-        generatedComponents.push(<Player name={element.name} ac={element.ac} key={index}> </Player>);
+        generatedComponents.push(<Player name={element.name} ac={element.ac} unconscious = {element.unconscious}
+          updateConsciousness = {updateConsciousness} key={index}> </Player>);
       }
       else {
         generatedComponents.push(<Monster monster={element} updateHp={updateHp} key={index} > </Monster>);
@@ -305,9 +325,11 @@ class EncounterManager extends Component {
         id='encounter-page'
         title="Encounter"
         leading={<Link to={'/PlayerSelection'}>Back</Link>}
-        trailing={<Link to={'/'}>Next</Link>}>
+        trailing={<Link to={'/'}>Next</Link>}
+        leftSidebar = <DmSidebar rankedList={rankedList} updateHp={this.updateHp} updateConsciousness = {this.updateConsciousness}></DmSidebar>
+        rightSidebar = <RoundCounter/>
+        >
         <Carousel children={generatedComponents}></Carousel>
-        <DmSidebar rankedList={rankedList} updateHp={this.updateHp}></DmSidebar>
       </Page>
     );
   }
