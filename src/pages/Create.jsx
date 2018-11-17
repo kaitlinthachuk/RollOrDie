@@ -13,20 +13,31 @@ const API_BASE_URL = 'https://monsterserver.herokuapp.com/api/monsters/';
 class Create extends Component {
   constructor(props) {
     super(props);
-    
-    let passedEncounter;
-    if (props.location && props.location.state && props.location.state.encounter) {
-      let _passedEncounter = props.location.state.encounter;
-      _passedEncounter.stage = constants.EncounterStage.CREATED;
-      passedEncounter = storage.saveEncounterToStorage(props.location.state.encounter);
 
+    let passedEncounter;
+    let encounterUid = props.match.params && props.match.params.uid ? props.match.params.uid : null;
+
+    if (encounterUid) {
+      passedEncounter = storage.getEncounterFromStorage(encounterUid);
     } else {
-      passedEncounter = storage.saveEncounterToStorage({ 
-        title: "",
+      passedEncounter = storage.saveEncounterToStorage({
+        title: '',
         selectedMonsters: {},
         stage: constants.EncounterStage.CREATED,
-      });
+      }) 
     }
+    // if (props.location && props.location.state && props.location.state.encounter) {
+    //   let _passedEncounter = props.location.state.encounter;
+    //   _passedEncounter.stage = constants.EncounterStage.CREATED;
+    //   passedEncounter = storage.saveEncounterToStorage(props.location.state.encounter);
+
+    // } else {
+    //   passedEncounter = storage.saveEncounterToStorage({ 
+    //     title: "",
+    //     selectedMonsters: {},
+    //     stage: constants.EncounterStage.CREATED,
+    //   });
+    // }
  
     this.state = {
       isError         : false,

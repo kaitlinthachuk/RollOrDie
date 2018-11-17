@@ -18,13 +18,15 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={Home} />
           <Route exact path="/encounters" component={Encounters} />
-          <Route path="/encounters/new" component={Create} />
+          <Route exact path="/encounters/new" componente={Create} />
+          <Route exact path="/encounters/edit/:uid" component={Create} />
           <Route path="/PlayerSelection" component={PlayerSelection} />
           <Route exact path="/Encounter" component={EncounterManager} />
-          <Route path="/parties/new" component={BuildParty} />
+          <Route exact path="/parties/edit/:uid" component={BuildParty} />
+          <Route exact path="/parties/new/" component={BuildParty} />
           <Route exact path="/parties" component={Parties} />
+          <Route exact path="/" component={Home} />
         </div>
       </Router>
     );

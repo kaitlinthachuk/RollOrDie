@@ -19,6 +19,7 @@ class PlayerSelection extends Component {
     };
 
     
+    
     if (props.location && props.location.state && props.location.state.encounter) {
       this.state.encounter = props.location.state.encounter;
     } else {
@@ -73,7 +74,7 @@ class PlayerSelection extends Component {
     return (
       <Page
         id='player-selection-page'
-        leading={<Link to={{ pathname:'/encounters/new', state: { encounter }}}>Back</Link>}
+        leading={<Link to={{ pathname:'/encounters/edit/' + this.props.location.state.encounter.uid }}>Back</Link>}
         trailing={<Link to={{pathname: '/Encounter', state : this.state} }>Next</Link>}>
         <ModalDialog show={pickParty} onEsc={this.handleAddPartyClick}>
           <ul className='party-picker'>

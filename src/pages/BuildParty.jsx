@@ -13,8 +13,14 @@ import '../styles/BuildParty.scss';
 class BuildParty extends Component {
   constructor(props) {
     super(props);
-    let passedParty = props.location ? (props.location.state ? props.location.state.selectedParty : { title: '', players: []}) : { title: '', players: []};
+
+    let partyUid = (props.match && props.match.params) ? props.match.params.uid : null;
     
+    let passedParty = { title: '', players: []};
+    if (partyUid) {
+      passedParty = storage.getPartyFromStorage(partyUid);
+    } 
+
     this.state = {
       party    : passedParty,
       showModal: false,

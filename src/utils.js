@@ -2,23 +2,56 @@ import ShortId from 'shortid';
 
 const storage = {
   // TODO: Finish Cache implementation
-  // _dirtyFlags: {parties: true, encounters: true},
-  // _cache: {parties: null, encounters: null},
+  _dirty: {parties: true, encounters: true},
+  _cache: {parties: {}, encounters: {}},
   getPartiesFromStorage(asArray = false) {
-    let str = localStorage.getItem('savedParties');
-    if (str) {
-      return asArray ? Object.values(JSON.parse(str)) : JSON.parse(str);
+    let result; 
+    if (this._dirty.parties) {
+      let str = localStorage.getItem('savedParties');
+      if (str) {
+        result = JSON.parse(str);
+      } else {
+        result =  {};
+      }
+    this._cache.parties = result;
+    this._dirty.parties = false;
     } else {
-      return asArray ? [] : {};
+      result = this._cache.parties;
     }
+    return asArray ? Object.values(result) : result;
   },
 
   getEncountersFromStorage(asArray = false) {
-    let str = localStorage.getItem('savedEncounters');
-    if (str) {
-      return asArray ? Object.values(JSON.parse(str)) : JSON.parse(str);
+    let result;
+    if (this._dirty.encounters) {
+      let str = localStorage.getItem('savedEncounters');
+      if (str) {
+        result = JSON.parse(str);
+      } else {
+        result = {};
+      }
+      this._cache.encounters = result;
+      this._dirty.encounters = false;
     } else {
-      return asArray ? [] : {};
+      result = this._cache.encounters;
+      console.log('CACHED ENCOUNTERS')
+    }
+    return asArray ? Object.values(result) : result;
+  },
+
+  getPartyFromStorage(partyUid) {
+    if (partyUid) {
+      return this.getPartiesFromStorage()[partyUid];
+    } else {
+      return null;
+    }
+  },
+
+  getEncounterFromStorage(encounterUid) {
+    if (encounterUid) {
+      return this.getEncountersFromStorage()[encounterUid];
+    } else {
+      return null;
     }
   },
 
@@ -35,6 +68,7 @@ const storage = {
     }
 
     localStorage.setItem('savedParties', JSON.stringify(_new));
+    this._dirty.parties = true;
     return _new[party.uid];
   },
 
@@ -51,6 +85,7 @@ const storage = {
     }
 
     localStorage.setItem('savedEncounters', JSON.stringify(_new));
+    this._dirty.encounters = true;
     return _new[encounter.uid];
   },
 
@@ -62,6 +97,7 @@ const storage = {
       if (party.uid in obj) {
         delete obj[party.uid];
         localStorage.setItem('savedParties', JSON.stringify(obj));
+        this._dirty.parties = true;
         return true;
       }
     }
@@ -76,6 +112,7 @@ const storage = {
       if (encounter.uid in obj) {
         delete obj[encounter.uid];
         localStorage.setItem('savedEncounters', JSON.stringify(obj));
+        this._dirty.encounters = true;
         return true;
       }
     }

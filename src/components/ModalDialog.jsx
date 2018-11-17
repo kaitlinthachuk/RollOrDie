@@ -15,7 +15,7 @@ class ModalDialog extends Component {
       document.addEventListener("keydown", this.handleKeyDown, false);
       return (
       <div className='modal-dialog'>
-        <div className='children-wrapper'>
+        <div className='children-wrapper' onClick={this.handleWrapperClick}>
           {this.props.children}
         </div>
       </div>
@@ -31,6 +31,10 @@ class ModalDialog extends Component {
     if (onEsc && event.keyCode === 27) {
       onEsc();
     }
+  }
+
+  handleWrapperClick(e) {
+    e.stopPropagation();
   }
 }
 

@@ -4,17 +4,33 @@ $primary-text: white;
 $secondary-text: black;
 $global-backdrop: hsl(211, 11%, 10%);
 
+// Sizes
+$small-screen: 1000px;
+
 // NAVBAR VARIABLES
 $navbar-height: 3rem;
 
 // Setting up Grid
 $grid-template-areas:
-'top-left top-center top-right'
+'. top-center .'
 'main-left main-center main-right'
-'bottom-left bottom-center bottom-right';
-$grid-template-columns: auto minmax(720px, 66.66%) auto;
-$grid-template-rows: $navbar-height auto $navbar-height;
+'.  bottom-center .';
+$grid-template-columns: minmax(300px, 20%) auto minmax(300px, 20%);
+$grid-template-rows: min-content 1fr min-content;
 
+$grid-template-areas-mobile:
+'top-center top-center'
+'main-center main-center'
+'tab-bar tab-bar'
+'bottom-center bottom-center';
+$grid-template-columns-mobile: 1fr 1fr;
+$grid-template-rows-mobile: min-content 1fr repeat(2, min-content);
+
+@mixin mobile-span-all-columns {
+  @media only screen and (max-width: 1000px) {
+    grid-column: 1/4;
+  }
+}
 $border-radius: 0.2rem;
 
 // Font

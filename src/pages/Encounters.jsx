@@ -26,7 +26,7 @@ class Encounters extends Component {
     if (encounter) {
       switch(encounter.stage) {
         case constants.EncounterStage.CREATED:
-          return <Redirect to={{pathname: '/encounters/new', state: { encounter: encounter } }} />;
+          return <Redirect to={{pathname: '/encounters/edit/' + encounter.uid}} />;
         case constants.EncounterStage.MONSTERS_SELECTED:
           return <Redirect to={{pathname: '/PlayerSelection', state: { encounter: encounter } }} />
         default:

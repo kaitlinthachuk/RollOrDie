@@ -1,0 +1,70 @@
+@import './vars';
+
+.layout {
+  // Setting up grid layout
+  display: grid;
+  grid-template-areas: $grid-template-areas;
+  grid-template-columns: $grid-template-columns;
+  grid-template-rows: $grid-template-rows;
+  
+  @media only screen and (max-width: $small-screen) {
+    grid-template-areas: $grid-template-areas-mobile;
+    grid-template-columns: $grid-template-columns-mobile;
+    grid-template-rows: $grid-template-rows-mobile;
+  }
+  
+  height: 100vh;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: radial-gradient(lighten($global-backdrop, 20), $global-backdrop);
+    z-index: -1;
+  }
+
+  .page {
+    position: relative;
+    grid-area: main-center;
+    background: $secondary-color;
+    // height: calc(100vh - 2* #{$navbar-height});
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    box-shadow: 0 0 5rem rgba(0, 0, 0, 0.8);
+  }
+
+  .left-side-bar {
+    grid-area: main-left;
+    overflow-y: auto;
+    z-index: 1;
+    display: flex;
+  }
+
+  .right-side-bar {
+    grid-area: main-right;
+    overflow-y: auto;
+    z-index: 1;
+    display: flex;
+  }
+
+  .bottom-navbar-tab {
+    height: 2rem;
+    background-color: $primary-color;
+    cursor: pointer;
+    z-index: 0;
+
+    &.left {
+      grid-area: main-left;
+    }
+
+    &.right {
+      grid-area: main-right;
+    }
+  }
+}

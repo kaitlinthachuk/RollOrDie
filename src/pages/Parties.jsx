@@ -24,7 +24,7 @@ class Parties extends Component {
   render() {
     const { selectedParty, savedParties } = this.state;
     if (selectedParty) {
-      return <Redirect to={{pathname: '/parties/new', state: this.state}} />
+      return <Redirect to={{pathname: '/parties/edit/' + selectedParty.uid}} />
     }
 
     return (
