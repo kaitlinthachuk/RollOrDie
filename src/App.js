@@ -19,7 +19,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/encounters" component={Encounters} />
-          <Route exact path="/encounters/new" componente={Create} />
+          <Route exact path="/encounters/new" component={Create} />
           <Route exact path="/encounters/edit/:uid" component={Create} />
           <Route path="/PlayerSelection" component={PlayerSelection} />
           <Route exact path="/Encounter" component={EncounterManager} />
