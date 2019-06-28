@@ -1,0 +1,26 @@
+@import 'vars';
+
+.round-counter{
+display: inline-flex;
+text-align: left;
+}
+
+.counter-input {
+  margin: 1rem;
+  padding: 10px;
+}
+
+.counter-add-button{
+  padding: 0.4rem;
+}
+
+.counter-text{
+  padding: 10px;
+}
+
+.round-counter-button{
+  padding: 0!important;
+  height: 30px;
+  width: 20px!important;
+  margin-top: 25px;
+}

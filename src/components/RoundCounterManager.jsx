@@ -41,12 +41,13 @@ removeCounter(index){
 
 addCounter(e){
   e.preventDefault();
-  var affect_name = e.target.previousElementSibling.value;
+  var effect_name = e.target.previousElementSibling.value;
+  e.target.previousElementSibling.value = "";
   var set =  this.props.roundCount;
   var expires = this.props.roundCount + 10;
   var turn = this.props.currentParticipantIndex;
   var turn_participant = this.props.rankedList[this.props.currentParticipantIndex];
-  var counter = <Counter name = {affect_name} roundSet = {set}
+  var counter = <Counter name = {effect_name} roundSet = {set}
                   roundExpire = {expires}
                   turnExpire = {turn}
                   onClick = {this.removeCounter}
@@ -61,10 +62,10 @@ addCounter(e){
   render() {
     return (
       <div className = 'counter-form'>
-        <div className= "counter-input">
-        <input className = "counter-input" type="text" name="affect" placeholder="Affect Name"
+        <div className= "counters">
+        <input className = "counter-input" type="text" name="effect" placeholder="Effect Name"
           autocomplete="off"/>
-        <button className='button' onClick = {this.addCounter}>Add</button>
+        <button className='counter-add-button' onClick = {this.addCounter}>Add</button>
         </div>
         {this.state.counterList}
       </div>
