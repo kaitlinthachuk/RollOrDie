@@ -3,7 +3,7 @@ import Player from '../components/Player.jsx';
 import Monster from '../components/Monsters.jsx';
 import Carousel from '../components/Carousel.jsx';
 import DmSidebar from '../components/DmSidebar.jsx';
-import RoundCounter from '../components/RoundCounter.jsx';
+import RoundCounterManager from '../components/RoundCounterManager.jsx';
 import Page from './Page.jsx';
 import { Link } from "react-router-dom";
 
@@ -14,12 +14,15 @@ class EncounterManager extends Component {
     super(props);
     this.state = {
       monsterList: {},
-      playerList: []
+      playerList: [],
+      currentParticipantIndex: 0,
+      roundCount: 1
     };
 
     this.rankedList = [];
     this.updateHp = this.updateHp.bind(this);
     this.updateConsciousness = this.updateConsciousness.bind(this);
+    this.nextTurn = this.nextTurn.bind(this);
   }
   componentDidMount() {
     //var recievedMonsters = this.props.location.state.monsterList;
@@ -236,9 +239,21 @@ class EncounterManager extends Component {
 
     this.setState({
       playerList: playerList,//recievedMonsters,
-      monsterList: monsterList//recievedPlayers
+      monsterList: monsterList,//recievedPlayers
     })
 
+  }
+  nextTurn() {
+    var lastIndex = this.rankedList.length - 1;
+    var currentIndex = this.state.currentParticipantIndex;
+    var currentRound = this.state.roundCount;
+    const shouldResetIndex = currentIndex === lastIndex;
+    const index =  shouldResetIndex ? 0 : currentIndex + 1;
+    const round = shouldResetIndex ? currentRound + 1 : currentRound;
+    this.setState({
+      currentParticipantIndex: index,
+      roundCount: round
+    });
   }
   updateConsciousness(name){
     var playerList = this.state.playerList;
@@ -325,15 +340,17 @@ class EncounterManager extends Component {
         id='encounter-page'
         title="Encounter"
         leading={<Link to={'/PlayerSelection'}>Back</Link>}
-        trailing={<Link to={'/'}>Next</Link>}
+        trailing={<button className='button' onClick = {this.nextTurn}>Next</button>}
         leftSidebar = {<DmSidebar rankedList={rankedList} updateHp={this.updateHp}
         leftSidebarTitle = {'DM CheatSheet'}
         updateConsciousness = {this.updateConsciousness}></DmSidebar>}
         leftSidebarTitle = {'DM CheatSheet'}
-        rightSidebar = {<RoundCounter/>}
+        rightSidebar = {<RoundCounterManager roundCount = {this.state.roundCount} currentParticipantIndex = {this.state.currentParticipantIndex}
+                          rankedList = {rankedList}/>}
         rightSidebarTitle = {'Round Counter'}
         >
-        <Carousel children={generatedComponents}></Carousel>
+        <Carousel children={generatedComponents} roundCount = {this.state.roundCount} currentParticipantIndex = {this.state.currentParticipantIndex}
+        nextTurn = {this.nextTurn}></Carousel>
       </Page>
     );
   }

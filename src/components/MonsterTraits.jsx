@@ -5,7 +5,7 @@ class MonsterTraits extends Component {
     var pContent = [];
     Object.entries(traits).forEach(function(trait, index) {
       if(trait[0] !== "challenge"){
-      pContent.push(<p key = {index}>{highlightText(capitalize(trait[0]))} : {trait[1]} </p>);
+      pContent.push(<td key = {index}>{highlightText(capitalize(trait[0]))} : {trait[1]} </td>);
     }});
       return pContent;
   }
@@ -14,10 +14,12 @@ class MonsterTraits extends Component {
     var traits = p.traits;
 
     return (
-      <div>
-      <h4>Monster Traits</h4>
+      <table className = "monster-traits-table">
+      <tr>
+      <th>Traits</th>
       {this.extractTraits(traits, p.highlightText, p.capitalize)}
-      </div>
+      </tr>
+      </table>
     );
   }
 }

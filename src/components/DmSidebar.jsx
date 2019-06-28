@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../styles/DmSidebar.scss';
-import HP from './HP.jsx';
 import Player from './Player.jsx';
 import SidebarMonster from './SidebarMonster.jsx';
 
@@ -11,7 +10,6 @@ class DmSidebar extends Component {
     var updateHp = this.props.updateHp;
     var updateConsciousness = this.props.updateConsciousness;
     var generatedComponents = [];
-    console.log(rankedList);
 
     rankedList.forEach(function (element, index) {
       if (element.participant === 'player') {
