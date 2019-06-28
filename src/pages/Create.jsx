@@ -40,12 +40,13 @@ class Create extends Component {
     // }
  
     this.state = {
-      isError         : false,
-      error           : null,
-      monsters        : [],
-      encounter       : passedEncounter,
-      searchTerm      : '',
-      saved           : false,
+      isError   : false,
+      error     : null,
+      monsters  : [],
+      encounter : passedEncounter,
+      searchTerm: '',
+      saved     : false,
+      loading   : true,
     };
 
     this.handleTitleChange      = this.handleTitleChange.bind(this);
@@ -78,7 +79,8 @@ class Create extends Component {
           });
           sessionStorage.setItem('monsters', JSON.stringify(monsters));
           this.setState({
-            monsters: monsters
+            monsters: monsters,
+            loading: false,
           });
         },
         (error) =>{
@@ -94,7 +96,7 @@ class Create extends Component {
     }
   }
   render() {
-    const { isError, encounter, saved } = this.state;
+    const { isError, encounter, saved, loading } = this.state;
 
     if (saved) {
       return <Redirect to={{pathname: '/PlayerSelection', state: { encounter: encounter}}} />
@@ -103,6 +105,8 @@ class Create extends Component {
     let contents;
     if (isError) {
       contents = <div>Something broke!</div>;
+    } else if (loading) {
+      contents = SVGSpinner;
     } else {
       contents = this.buildMonsterList();
     }
@@ -248,5 +252,14 @@ class Create extends Component {
     });
   }
 }
+
+const SVGSpinner =
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g>
+      <circle className={'spinner'} cx={50} cy={50} r={25} />
+      <circle className={'spinner-inner'} cx={50} cy={50} r={15} />
+      {/* <path d='M 50 50 a 25 25 0 0 1 5 50' stroke='blue' stroke-width={2}/> */}
+      </g>
+    </svg>;
 
 export default Create;
