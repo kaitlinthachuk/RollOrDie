@@ -340,7 +340,7 @@ class EncounterManager extends Component {
         id='encounter-page'
         title="Encounter"
         leading={<Link to={'/PlayerSelection'}>Back</Link>}
-        trailing={<button className='button' onClick = {this.nextTurn}>Next</button>}
+        trailing={<Link to = {'/'}>End Combat</Link>}
         leftSidebar = {<DmSidebar rankedList={rankedList} updateHp={this.updateHp}
         leftSidebarTitle = {'DM CheatSheet'}
         updateConsciousness = {this.updateConsciousness}></DmSidebar>}

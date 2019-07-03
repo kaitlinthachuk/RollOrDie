@@ -1,5 +1,11 @@
 @import "vars";
 
 .round-tracker{
-  text-align: center;
+  align-items: center;
+  display: flex;
+}
+
+.round-title{
+  flex: 1 1;
+  margin-left: 70px!important;
 }
