@@ -12,12 +12,23 @@
     }
   }
 
+  .player-delete{
+      float: right;
+      margin-right: 0.7rem;
+      cursor: pointer;
+  }
   .player-card {
-    height: 100px;
+    height: 120px;
     width: 300px;
     text-align: left;
-    margin: auto;
+    margin: 1rem auto 1rem auto;
     background: $primary-color;
+    display: block;
+    padding-top: 0.5rem;
+
+    ul {
+      margin: 0 0 1rem 1rem;
+    }
   }
 
   button {

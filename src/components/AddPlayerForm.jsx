@@ -3,7 +3,7 @@ import RangePicker from './RangePicker';
 
 // styles
 import '../styles/AddPlayerForm.scss';
- 
+
 class AddPlayerForm extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +46,11 @@ class AddPlayerForm extends Component {
       validationHint  += "Name cannot be empty. "
     }
 
+    if (!init) {
+      validationError = true;
+      validationHint  += "Initiative cannot be empty. "
+    }
+
     this.setState(newPlayer);
 
     if (validationError) {
@@ -67,7 +72,7 @@ class AddPlayerForm extends Component {
     let { cancelButton, onCancel } = this.props;
     return (
       <form className="add-player-form" onSubmit={this.onFormSubmit} noValidate>
-        <input 
+        <input
           type="text"
           name="name"
           placeholder="Bilbo Baggins..."
@@ -75,16 +80,19 @@ class AddPlayerForm extends Component {
           onChange={this.handleChange}
           />
         <label><i className='ac-icon'></i>{'(Armor Class)'}</label>
-        <RangePicker 
+        <RangePicker
           id={'ac-picker'}
           min={10}
           max={20}
           buttonName={'ac'} />
         <label><i className='init-icon'></i>{'(Initiative)'}</label>
-        <RangePicker id={'init-picker'} min={0} max={5} buttonName={'init'}/>
+        <input
+         type = "number"
+         id={'init-picker'}
+         name={'init'}/>
         { validationError ? <div className='validation-hint'>{validationHint}</div> : null }
         <button>Add Player</button>
-        { cancelButton ? 
+        { cancelButton ?
           <button onClick={onCancel}>Cancel</button> :
           null }
       </form>

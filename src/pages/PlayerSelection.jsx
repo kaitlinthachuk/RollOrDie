@@ -39,8 +39,9 @@ class PlayerSelection extends Component {
   }
 
   deleteOnClick(e){
+    //debugger;
     e.preventDefault();
-    var playerContainer = e.target.parentElement.parentElement;
+    var playerContainer = e.target.parentElement;
     var name = playerContainer.id;
     var newList = this.state.playerList.filter(player => {
       return player.name !== name;
@@ -112,12 +113,12 @@ class PlayerSelection extends Component {
   }
 }
 
-const PlayerComponent = props => (<div className = "player-card" id = {props.playerName}>
-  <p> Player's Name: {props.playerName}
-  <button className='button' onClick = {props.deleteOnClick}>Delete</button></p>
-  <p> Player's AC: {props.ac}</p>
-  <p>Player's Initiative: {props.initiative}</p>
-</div>
+const PlayerComponent = props => (<li className = "player-card" id = {props.playerName}>
+<div className='player-delete' onClick = {(event) => props.deleteOnClick(event)}>X</div>
+  <ul> Player's Name: {props.playerName}</ul>
+  <ul> Player's AC: {props.ac}</ul>
+  <ul>Player's Initiative: {props.initiative}</ul>
+</li>
 );
 
 export default PlayerSelection;

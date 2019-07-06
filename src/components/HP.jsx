@@ -41,7 +41,7 @@ const HPComponent = props => (
   Monster : {props.index + 1}  HP: {props.hp}
     <input className = "hp-input" type = "number"/>
     <button className='hp-button' onClick = {props.heal}>+</button>
-    <button className='hp-button' onClick = {props.damage}>-</button>
+    <button className='hp-button' onClick = {props.damage}>-</button> m
 </div>
 
 );
