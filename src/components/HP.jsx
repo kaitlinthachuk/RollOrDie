@@ -16,6 +16,7 @@ class HP extends Component {
   }
   damageMonster(e){
     e.preventDefault();
+    debugger;
     var parent = e.target.parentElement;
     var calculateHp = parseInt(parent.dataset.currenthp) - parseInt(parent.children[0].value);
     var newHp = calculateHp < 0 ? 0 : calculateHp;
@@ -38,10 +39,11 @@ class HP extends Component {
 const HPComponent = props => (
   <div className = "hp-element" id = {props.name} data-monsterindex = {props.index} data-currenthp = {props.hp}>
   Monster : {props.index + 1}  HP: {props.hp}
-  <input className = "hp-input" type = "number"/>
-  <button className='hp-button' onClick = {props.heal}>+</button>
-  <button className='hp-button' onClick = {props.damage}>-</button>
+    <input className = "hp-input" type = "number"/>
+    <button className='hp-button' onClick = {props.heal}>+</button>
+    <button className='hp-button' onClick = {props.damage}>-</button>
 </div>
+
 );
 
 export default HP;

@@ -59,11 +59,11 @@ class SidebarMonster extends Component {
       <div className='monster-tile' id = {monster.name}>
       <h4>{monster.name}</h4>
       <HP count = {monster.count} hpList = {monster.hpList} updateHp = {this.props.updateHp} monsterName = {monster.name}/>
-      <p>AC : {monster.attributes['armor-class'].score} Type : {monster.attributes['armor-class'].type} </p>
-      <p> Modifiers: Cha: {monster.abilities.cha.modifier} Con: {monster.abilities.con.modifier} Dex: {monster.abilities.dex.modifier}
-       Int: {monster.abilities.int.modifier} Str: {monster.abilities.str.modifier} Wis: {monster.abilities.wis.modifier}</p>
-      {this.getTraits(monster.traits)}
-      {this.getActions(monster.actions)}
+      <p>AC : {monster.details.attributes['armor-class'].score} Type : {monster.details.attributes['armor-class'].type} </p>
+      <p> Modifiers: Cha: {monster.details.abilities.cha.modifier} Con: {monster.details.abilities.con.modifier} Dex: {monster.details.abilities.dex.modifier}
+       Int: {monster.details.abilities.int.modifier} Str: {monster.details.abilities.str.modifier} Wis: {monster.details.abilities.wis.modifier}</p>
+      {this.getTraits(monster.details.traits)}
+      {this.getActions(monster.details.actions)}
       </div>
     );
   }

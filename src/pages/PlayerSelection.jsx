@@ -13,13 +13,13 @@ class PlayerSelection extends Component {
     super(props);
 
     this.state = {
-      playerList: [], 
+      playerList: [],
       monsterList: [],
       pickParty: false,
     };
 
-    
-    
+
+
     if (props.location && props.location.state && props.location.state.encounter) {
       this.state.encounter = props.location.state.encounter;
     } else {
@@ -32,9 +32,7 @@ class PlayerSelection extends Component {
   }
 
   componentDidMount() {
-    var recievedMonsters = this.props.location.state.monsterList;
-    console.log(recievedMonsters);
-
+    var recievedMonsters= this.props.location.state.encounter.selectedMonsters;
     this.setState({
       monsterList : recievedMonsters
     })
@@ -62,10 +60,10 @@ class PlayerSelection extends Component {
   render() {
     const { playerList, pickParty, encounter } = this.state;
     let players = playerList.map((player, index) => {
-      return (<PlayerComponent 
-        playerName={player.name} 
-        ac={player.ac} 
-        key= {index} 
+      return (<PlayerComponent
+        playerName={player.name}
+        ac={player.ac}
+        key= {index}
         initiative={player.initiative}
         deleteOnClick = {this.deleteOnClick}
       />);

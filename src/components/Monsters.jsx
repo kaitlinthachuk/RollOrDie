@@ -23,13 +23,13 @@ class Monster extends Component {
     return (
       <div className='monster-tile' id = {monster.name}>
       <h2>{monster.name}</h2>
-      <h4>Armor Class:{monster.attributes['armor-class'].score}</h4>
+      <h4>Armor Class: {monster.details.attributes['armor-class'].score}</h4>
       <HP count = {monster.count} hpList = {monster.hpList} updateHp = {this.props.updateHp} monsterName = {monster.name}/>
-      <MonsterAttributes attributes = {monster.attributes} size = {monster.size}
-        alignment = {monster.alignment} type = {monster.type} highlightText = {this.highlightText}/>
-      <MonsterAbilities abilities = {monster.abilities} highlightText = {this.highlightText}/>
-      <MonsterTraits traits = {monster.traits} highlightText = {this.highlightText} capitalize = {this.capitalize}/>
-      <MonsterActions  actions = {monster.actions} highlightText = {this.highlightText} capitalize = {this.capitalize}/>
+      <MonsterAttributes attributes = {monster.details.attributes} size = {monster.details.size}
+        alignment = {monster.alignment} type = {monster.details.type} highlightText = {this.highlightText}/>
+      <MonsterAbilities abilities = {monster.details.abilities} highlightText = {this.highlightText}/>
+      <MonsterTraits traits = {monster.details.traits} highlightText = {this.highlightText} capitalize = {this.capitalize}/>
+      <MonsterActions  actions = {monster.details.actions} highlightText = {this.highlightText} capitalize = {this.capitalize}/>
       </div>
     );
   }
