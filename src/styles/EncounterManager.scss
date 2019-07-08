@@ -1,14 +1,5 @@
 @import "vars";
 
-.encounter-container {
-  grid-area: main-center;
-  background-color: $secondary-color;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 td {
   width: 220px;
 }

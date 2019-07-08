@@ -7,11 +7,10 @@ class Carousel extends Component {
 
     return (
       <div className = "carousel">
-        <div className = 'round-tracker'><h2 className = "round-title">Current Round: {this.props.roundCount}</h2>
-          <button className = 'round-button' onClick = {this.props.nextTurn}>Next</button>
-        </div>
+        <h2 className = "round-title">Current Round: {this.props.roundCount}</h2>
+        <button className = 'round-button' onClick = {this.props.nextTurn}>Next</button>
         {children[this.props.currentParticipantIndex]}
-        <div><button className='button' onClick = {this.props.nextTurn}>Next</button></div>
+        <button className='round-button-bottom' onClick = {this.props.nextTurn}>Next</button>
       </div>
     )
   }

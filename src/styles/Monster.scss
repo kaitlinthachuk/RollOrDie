@@ -1,6 +1,52 @@
 @import "vars";
 
+.carousel{
+      .monster-tile{
+      // Setting up grid layout
+      display: grid;
+      grid-template-areas:
+      '. header .'
+      'top-left top-center top-right'
+      ' . trait-area .'
+      '.  action-center .';
+      grid-template-columns:  1fr 2fr 2fr;
+      grid-template-rows: auto auto auto auto;
+    }
+}
+
 .important-text {
   color: black;
   font-weight: bold;
+}
+
+.monster-info{
+  grid-area: header;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.monster-abilities{
+  grid-area: top-left;
+}
+.monster-attributes{
+  grid-area: top-center;
+  text-align: left;
+  margin: auto;
+}
+.hp-container{
+  grid-area: top-right;
+  margin: auto;
+}
+
+.monster-traits{
+  grid-area: trait-area;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.actions-container{
+  grid-area: action-center;
+  grid-column-start: 1;
+  grid-column-end: 4;
+
 }

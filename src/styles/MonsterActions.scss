@@ -1,0 +1,50 @@
+@import "vars";
+
+
+.actions-container{
+  // Setting up grid layout
+  display: grid;
+  grid-template-areas:
+  'top-left top-center .'
+  ' main-left main-center .'
+  'bottom-left bottom-center .';
+  grid-template-columns: 100px  2fr 2fr;
+  grid-template-rows: auto auto auto;
+  grid-row-gap:50px;
+}
+
+.actions-title{
+  grid-area: top-left;
+  text-align: center;
+}
+
+.actions{
+  grid-area: top-center;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  text-align:left;
+}
+
+.legendary-title{
+  grid-area: main-left;
+  text-align: center;
+}
+
+.legendary-actions{
+  grid-area: main-center;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  text-align:left;
+}
+
+.extras-title{
+  grid-area: bottom-left;
+  text-align: center;
+}
+
+.extras{
+  grid-area: bottom-center;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  text-align:left;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/MonsterActions.scss';
 
 class MonsterActions extends Component {
   constructor(props){
@@ -30,7 +31,7 @@ class MonsterActions extends Component {
           spanContent.push(<span key = {index + 200}>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
         }
       });
-          content.push(<p key = {index + 100}>{spanContent}</p>);
+          content.push(spanContent);
       }
 
     });
@@ -53,11 +54,11 @@ class MonsterActions extends Component {
           spanContent.push(<span key = {index + 200}>{highlightText(capitalize(entry[0]))} : {entry[1]} </span>);
         }
       });
-          content.push(<p key = {index + 100}>{spanContent}</p>);
+          content.push(spanContent);
       }
 
     });
-    return (<div key = "1001" className = "legendary-actions"><h4>Legendary Actions</h4>{content}</div>);
+    return (<div key = "1001" className = "legendary-actions">{content}</div>);
   }
   processPassiveActions(actions){
     var content = [];
@@ -73,7 +74,7 @@ class MonsterActions extends Component {
   });
       content.push(<p key = {index + 100}>{spanContent}</p>);
     });
-    return (<div key = "1002" className = "extras"><h4>Extras</h4>{content}</div>);
+    return (<div key = "1002" className = "extras">{content}</div>);
   }
   extractActions(actions){
     var content = [];
@@ -85,9 +86,11 @@ class MonsterActions extends Component {
         content.push(processActions(action[1]));
       }
       else if(action[0] === "legendary-actions"){
+        content.push(<h4 className= "legendary-title">Legendary Actions</h4>)
         content.push(processLegendaryActions(action[1]));
       }
       else if (action[0] === "passive"){
+      content.push(<h4 className= "extras-title">Extras</h4>)
       content.push(processPassiveActions(action[1]));
       }
     });
@@ -101,7 +104,7 @@ class MonsterActions extends Component {
 
     return (
       <div className = "actions-container">
-      <h4>Actions</h4>
+      <h4 className= 'actions-title'>Actions</h4>
       {this.extractActions(actions)}
       </div>
     );
