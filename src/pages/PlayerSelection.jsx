@@ -39,7 +39,6 @@ class PlayerSelection extends Component {
   }
 
   deleteOnClick(e){
-    //debugger;
     e.preventDefault();
     var playerContainer = e.target.parentElement;
     var name = playerContainer.id;
@@ -115,9 +114,8 @@ class PlayerSelection extends Component {
 
 const PlayerComponent = props => (<li className = "player-card" id = {props.playerName}>
 <div className='player-delete' onClick = {(event) => props.deleteOnClick(event)}>X</div>
-  <ul> Player's Name: {props.playerName}</ul>
-  <ul> Player's AC: {props.ac}</ul>
-  <ul>Player's Initiative: {props.initiative}</ul>
+  <ul> {props.playerName}</ul>
+  <ul> <i className='ac-icon'></i> {props.ac}    <i className='init-icon'></i> {props.initiative}</ul>
 </li>
 );
 

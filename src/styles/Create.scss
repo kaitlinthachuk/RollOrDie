@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  
+
   #title {
     background: none;
     line-height: 3rem;
@@ -49,7 +49,9 @@
     animation: rot 2s linear infinite reverse;
     transform-origin: 50% 50%;
   }
-
+  .reload-monsters{
+    margin-top: 50px;
+  }
   // g {
   //   animation: rot 1s linear infinite;
   // }

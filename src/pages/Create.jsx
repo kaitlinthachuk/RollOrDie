@@ -24,7 +24,7 @@ class Create extends Component {
         title: '',
         selectedMonsters: {},
         stage: constants.EncounterStage.CREATED,
-      }) 
+      })
     }
     // if (props.location && props.location.state && props.location.state.encounter) {
     //   let _passedEncounter = props.location.state.encounter;
@@ -32,13 +32,13 @@ class Create extends Component {
     //   passedEncounter = storage.saveEncounterToStorage(props.location.state.encounter);
 
     // } else {
-    //   passedEncounter = storage.saveEncounterToStorage({ 
+    //   passedEncounter = storage.saveEncounterToStorage({
     //     title: "",
     //     selectedMonsters: {},
     //     stage: constants.EncounterStage.CREATED,
     //   });
     // }
- 
+
     this.state = {
       isError   : false,
       error     : null,
@@ -53,12 +53,13 @@ class Create extends Component {
     this.handleSearchChange     = this.handleSearchChange.bind(this);
     this.handleMonsterTileClick = this.handleMonsterTileClick.bind(this);
     this.saveEncounter          = this.saveEncounter.bind(this);
+    this.fetchMonsters          = this.fetchMonsters.bind(this);
   }
 
   componentDidMount() {
     let _monsters = sessionStorage.getItem('monsters');
     if (_monsters === null) {
-      // Old Implementation using dnd5eapi.co 
+      // Old Implementation using dnd5eapi.co
       // Deprecated
       // fetch('http://www.dnd5eapi.co/api/monsters')
       //   .then((res) => { return res.json()})
@@ -67,31 +68,13 @@ class Create extends Component {
       //       monster.id = this.getMonsterId(monster);
       //       return monster;
       //     });
-      fetch(API_BASE_URL)
-        .then((res) => { return res.json()})
-        .then((monsters) => {
-          monsters = monsters.map((monster) => {
-            return { 
-              id: monster["Index"],
-              name: monster["Name"],
-              url: API_BASE_URL + monster["Index"],
-            };
-          });
-          sessionStorage.setItem('monsters', JSON.stringify(monsters));
-          this.setState({
-            monsters: monsters,
-            loading: false,
-          });
-        },
-        (error) =>{
-          this.setState({
-            isError: true,
-            error: error
-          });
-        })
+
+      this.fetchMonsters();
+
     } else {
       this.setState({
-        monsters: JSON.parse(_monsters)
+        monsters: JSON.parse(_monsters),
+        loading: false
       })
     }
   }
@@ -104,7 +87,9 @@ class Create extends Component {
 
     let contents;
     if (isError) {
-      contents = <div>Something broke!</div>;
+      contents = <div>Something broke!
+                    <div><button className= "reload-monsters" onClick = {() => this.fetchMonsters()}> Reload Monsters </button> </div>
+                  </div>;
     } else if (loading) {
       contents = SVGSpinner;
     } else {
@@ -127,7 +112,39 @@ class Create extends Component {
     );
   }
 
+fetchMonsters(){
+  this.setState({
+    loading: true,
+    isError: false
+  })
+  fetch(API_BASE_URL)
+    .then((res) => { return res.json()})
+    .then((monsters) => {
+      monsters = monsters.map((monster) => {
+        return {
+          id: monster["Index"],
+          name: monster["Name"],
+          url: API_BASE_URL + monster["Index"],
+        };
+      });
+      sessionStorage.setItem('monsters', JSON.stringify(monsters));
+      debugger;
+      this.setState({
+        monsters: monsters,
+        loading: false,
+      });
+    },
+    (error) =>{
+      this.setState({
+        isError: true,
+        error: error
+      });
+    })
+
+}
+
   buildMonsterList() {
+    debugger;
     const { monsters, searchTerm, encounter } = this.state;
     console.log('building...');
     let monstersToDisplay = monsters

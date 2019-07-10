@@ -16,9 +16,9 @@ class Player extends Component {
 
     return (
       <div className='player-tile' id = {playerName}>
-        <p>Player: {playerName} <label className= 'unconscious-label'>
+        <p>{playerName} <label className= 'unconscious-label'>
         <input type='checkbox' id = {playerName} onChange = {this.checkboxClicked} checked={unconscious ? 'checked' : ''}></input>Unconscious </label> <br></br>
-         AC: {playerAc}</p>
+         <i className='ac-icon'></i> {playerAc}</p>
       </div>
     );
   }

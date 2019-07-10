@@ -33,12 +33,15 @@ class AddPlayerForm extends Component {
 
     let playerName = target.name.value,
         ac         = parseInt(target.ac.value),
-        init       = parseInt(target.init.value),
+        init       = target.init.value,
         newPlayer  = {};
 
     validationError = false;
     validationHint  = "";
 
+    target.init.value = "";
+    target.name.value = "";
+    
     if (playerName.match(/\w+/g)) {
       newPlayer.name = playerName.trim();
     } else {
@@ -68,7 +71,7 @@ class AddPlayerForm extends Component {
   }
 
   render() {
-    let { validationError, validationHint, name } = this.state;
+    let { validationError, validationHint } = this.state;
     let { cancelButton, onCancel } = this.props;
     return (
       <form className="add-player-form" onSubmit={this.onFormSubmit} noValidate>
@@ -76,7 +79,6 @@ class AddPlayerForm extends Component {
           type="text"
           name="name"
           placeholder="Bilbo Baggins..."
-          value={name}
           onChange={this.handleChange}
           />
         <label><i className='ac-icon'></i>{'(Armor Class)'}</label>

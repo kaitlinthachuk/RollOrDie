@@ -18,16 +18,16 @@
       cursor: pointer;
   }
   .player-card {
-    height: 120px;
-    width: 300px;
-    text-align: left;
+    height: 80px;
+    width: 150px;
+    text-align: center;
     margin: 1rem auto 1rem auto;
     background: $primary-color;
     display: block;
     padding-top: 0.5rem;
 
     ul {
-      margin: 0 0 1rem 1rem;
+      margin: 0 0 1rem 0;
     }
   }
 

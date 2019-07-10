@@ -23,14 +23,19 @@ class EncounterManager extends Component {
     this.updateHp = this.updateHp.bind(this);
     this.updateConsciousness = this.updateConsciousness.bind(this);
     this.nextTurn = this.nextTurn.bind(this);
+
+    if (props.location && props.location.state && props.location.state.playerList && props.location.state.monsterList) {
+      this.state.playerList = props.location.state.playerList;
+      this.state.monsterList = props.location.state.monsterList;
+    } else {
+      throw new Error('Encounter is missing either playerlist or monsterlist');
+    }
   }
-  componentDidMount() {    
-    var recievedPlayers = this.props.location.state.playerList;
-    var monsterList = this.generateMonsterInitiatives(this.props.location.state.monsterList);
-    this.rankedList = this.getIntiativeRanking(monsterList, recievedPlayers);
+  componentDidMount() {
+    var monsterList = this.generateMonsterInitiatives(this.state.monsterList);
+    this.rankedList = this.getIntiativeRanking(monsterList, this.state.playerList);
 
     this.setState({
-      playerList: recievedPlayers,
       monsterList: monsterList,
       })
 
@@ -132,8 +137,7 @@ class EncounterManager extends Component {
       <Page
         id='encounter-page'
         title="Encounter"
-        leading={<Link to={'/PlayerSelection'}>Back</Link>}
-        trailing={<Link to = {'/'}>End Combat</Link>}
+        leading={<Link to = {'/'}>End Combat</Link>}
         leftSidebar = {<DmSidebar rankedList={rankedList} updateHp={this.updateHp}
         leftSidebarTitle = {'DM CheatSheet'}
         updateConsciousness = {this.updateConsciousness}></DmSidebar>}
