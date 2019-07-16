@@ -144,7 +144,6 @@ fetchMonsters(){
 }
 
   buildMonsterList() {
-    debugger;
     const { monsters, searchTerm, encounter } = this.state;
     console.log('building...');
     let monstersToDisplay = monsters
@@ -185,6 +184,9 @@ fetchMonsters(){
     });
     items.push(<li className='hline'></li>);
     items.push(<li className='total'><h3>Total XP</h3><h3>{`${challengeRating}`}</h3></li>)
+    if(!Object.keys(encounter.selectedMonsters).length){
+      items.push(<li className = "validation"> Please select at least one monster to continue</li>)
+    }
     return items;
   }
 
@@ -260,13 +262,14 @@ fetchMonsters(){
 
   saveEncounter() {
     let { encounter } = this.state;
+    if(Object.keys(encounter.selectedMonsters).length){
     encounter.stage = constants.EncounterStage.MONSTERS_SELECTED;
-
     encounter = storage.saveEncounterToStorage(encounter);
     this.setState({
       saved: true,
       encounter: encounter,
     });
+  }
   }
 }
 

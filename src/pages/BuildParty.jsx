@@ -15,11 +15,11 @@ class BuildParty extends Component {
     super(props);
 
     let partyUid = (props.match && props.match.params) ? props.match.params.uid : null;
-    
+
     let passedParty = { title: '', players: []};
     if (partyUid) {
       passedParty = storage.getPartyFromStorage(partyUid);
-    } 
+    }
 
     this.state = {
       party    : passedParty,
@@ -45,10 +45,11 @@ class BuildParty extends Component {
         trailing={<div onClick={this.saveParty}>Save</div>}
         leading={<Link to={'/parties'}>Back</Link>}>
         <ModalDialog show={showModal} onEsc={this.addPlayer}>
-          <AddPlayerForm 
+          <AddPlayerForm
             onPlayerAdd={this.savePlayer}
             cancelButton={true}
-            onCancel={this.addPlayer}/>
+            onCancel={this.addPlayer}
+            enterInit = {false}/>
         </ModalDialog>
         <div id='build-party-header'>
           <input id='title' type="text" value={party.title} onChange={this.handleTitleChange} placeholder='The Fellowship...'/>
@@ -63,7 +64,7 @@ class BuildParty extends Component {
     const { players } = this.state.party;
     return (
       <div className='player-grid'>
-        { 
+        {
         players.map((player, index) => {
           return (
             <div key={index} className='player-card'>
@@ -82,7 +83,7 @@ class BuildParty extends Component {
   }
 
   saveParty() {
-    const { party } = this.state;  
+    const { party } = this.state;
     storage.savePartyToStorage(party);
     this.setState({
       saved: true,

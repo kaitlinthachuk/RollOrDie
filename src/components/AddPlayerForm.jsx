@@ -26,22 +26,26 @@ class AddPlayerForm extends Component {
 
   onFormSubmit(event){
     let { target }                          = event,
-        { onPlayerAdd }                     = this.props,
+        { onPlayerAdd, enterInit }          = this.props,
         { validationError, validationHint } = this.state;
 
     event.preventDefault();
 
     let playerName = target.name.value,
         ac         = parseInt(target.ac.value),
-        init       = target.init.value,
-        newPlayer  = {};
+        newPlayer  = {},
+        init = 0;
+
+    if(enterInit){
+      init = target.init.value;
+      target.init.value = "";
+    }
 
     validationError = false;
     validationHint  = "";
 
-    target.init.value = "";
     target.name.value = "";
-    
+
     if (playerName.match(/\w+/g)) {
       newPlayer.name = playerName.trim();
     } else {
@@ -49,7 +53,7 @@ class AddPlayerForm extends Component {
       validationHint  += "Name cannot be empty. "
     }
 
-    if (!init) {
+    if (!init && enterInit) {
       validationError = true;
       validationHint  += "Initiative cannot be empty. "
     }
@@ -72,7 +76,7 @@ class AddPlayerForm extends Component {
 
   render() {
     let { validationError, validationHint } = this.state;
-    let { cancelButton, onCancel } = this.props;
+    let { cancelButton, onCancel, enterInit } = this.props;
     return (
       <form className="add-player-form" onSubmit={this.onFormSubmit} noValidate>
         <input
@@ -87,11 +91,12 @@ class AddPlayerForm extends Component {
           min={10}
           max={20}
           buttonName={'ac'} />
-        <label><i className='init-icon'></i>{'(Initiative)'}</label>
-        <input
+        {enterInit? <label><i className='init-icon'></i>{'(Initiative)'}</label>: null}
+        {enterInit? <input
          type = "number"
          id={'init-picker'}
-         name={'init'}/>
+         name={'init'}/> : null
+       }
         { validationError ? <div className='validation-hint'>{validationHint}</div> : null }
         <button>Add Player</button>
         { cancelButton ?

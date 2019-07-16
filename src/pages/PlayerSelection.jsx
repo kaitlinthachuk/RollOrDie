@@ -16,6 +16,9 @@ class PlayerSelection extends Component {
       playerList: [],
       monsterList: [],
       pickParty: false,
+      enterPartyInits: false,
+      party: [],
+      initError: false,
     };
 
 
@@ -29,6 +32,7 @@ class PlayerSelection extends Component {
     this.handlePlayerAdd = this.handlePlayerAdd.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
     this.handleAddPartyClick = this.handleAddPartyClick.bind(this);
+    this.handleAddInitsClick = this.handleAddInitsClick.bind(this);
   }
 
   componentDidMount() {
@@ -58,7 +62,8 @@ class PlayerSelection extends Component {
   }
 
   render() {
-    const { playerList, pickParty, encounter } = this.state;
+    const { playerList, pickParty, encounter, enterPartyInits, party, initError } = this.state;
+
     let players = playerList.map((player, index) => {
       return (<PlayerComponent
         playerName={player.name}
@@ -81,7 +86,23 @@ class PlayerSelection extends Component {
           })}
           </ul>
         </ModalDialog>
-        <AddPlayerForm onPlayerAdd={this.handlePlayerAdd} />
+        <ModalDialog show={enterPartyInits} onEsc = {() =>{return;}}>
+          <ul className='enter-inits'>
+          <h3>Enter Player Initiatives</h3>
+          {initError? <h4>All players must have an initiative</h4>: null}
+              {party.map((player) => {
+                return <li className = "party-player-add-initiative">
+                        <p>{player.name}</p>
+                        <p><i className='ac-icon'></i> {player.ac}</p>
+                        <input  type = "number" name = "init" id = "party-player-init"/>
+                      </li>
+              })
+              }
+              <button onClick = {this.handleAddInitsClick}>Done</button>
+
+          </ul>
+        </ModalDialog>
+        <AddPlayerForm onPlayerAdd={this.handlePlayerAdd} enterInit = {true} />
         <button onClick={this.handleAddPartyClick}>Add Party</button>
         <div id ="added-players-container">
           {players}
@@ -97,11 +118,53 @@ class PlayerSelection extends Component {
     });
   }
 
+  handleAddInitsClick({target}){
+    const { enterPartyInits, playerList, initError } = this.state;
+    let partyInputs = [...target.parentElement.children],
+        isError   = false,
+        party       = [];
+
+    partyInputs.shift();
+    partyInputs.pop();
+
+    if(initError){
+      partyInputs.shift();
+    }
+
+
+    for(var i = 0; i <partyInputs.length; i++){
+      let player = partyInputs[i];
+      if(!player.children[2].value){
+        isError = !isError;
+        break;
+      }
+
+    party.push({
+        name: player.children[0].innerText,
+        ac: player.children[1].innerText,
+        initiative: player.children[2].value,
+      })
+
+  };
+
+    if (!isError){
+    this.setState({
+    enterPartyInits: !enterPartyInits,
+    playerList: [ ...playerList, ...party],
+  }) } else {
+    this.setState({
+      initError: isError,
+    })
+  }
+}
+
   addParty(party) {
-    const { pickParty, playerList } = this.state;
+    const { pickParty, enterPartyInits } = this.state;
     this.setState({
       pickParty: !pickParty,
-      playerList: [...party.players, ...playerList],
+      enterPartyInits: !enterPartyInits,
+      party: party.players,
+
     })
   }
 
