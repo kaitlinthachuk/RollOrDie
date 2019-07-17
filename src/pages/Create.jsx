@@ -128,7 +128,6 @@ fetchMonsters(){
         };
       });
       sessionStorage.setItem('monsters', JSON.stringify(monsters));
-      debugger;
       this.setState({
         monsters: monsters,
         loading: false,
@@ -145,7 +144,6 @@ fetchMonsters(){
 
   buildMonsterList() {
     const { monsters, searchTerm, encounter } = this.state;
-    console.log('building...');
     let monstersToDisplay = monsters
       .filter((monster) => {
         return monster.name.match(new RegExp('.*' + searchTerm + ".*", "i"));
@@ -172,20 +170,22 @@ fetchMonsters(){
     const { encounter } = this.state;
     let challengeRating = 0;
 
+
     let items = Object.values(encounter.selectedMonsters).map((monster, index) => {
+
       if (monster.details != null) {
-        challengeRating += eval(monster.details.traits.challenge.split(' ')[0]) * monster.count;
+        challengeRating +=  eval(monster.details.traits.challenge.split(' ')[0]) * monster.count;
       }
       return (
         <li key={index}>
           <span>{`${monster.count}x ${monster.name}`}</span>
-          <span>{`${monster.details ? eval(monster.details.traits.challenge.split(' ')[0]) * monster.count : 0}`}</span></li>
+          <span>{`${monster.details ?  eval(monster.details.traits.challenge.split(' ')[0]) * monster.count : 0}`}</span></li>
       )
     });
-    items.push(<li className='hline'></li>);
-    items.push(<li className='total'><h3>Total XP</h3><h3>{`${challengeRating}`}</h3></li>)
+    items.push(<li key = '99' className='hline'></li>);
+    items.push(<li key = "100"className='total'><h3>Total XP</h3><h3>{`${challengeRating}`}</h3></li>)
     if(!Object.keys(encounter.selectedMonsters).length){
-      items.push(<li className = "validation"> Please select at least one monster to continue</li>)
+      items.push(<li key = "101" className = "validation"> Please select at least one monster to continue</li>)
     }
     return items;
   }

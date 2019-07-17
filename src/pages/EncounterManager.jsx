@@ -32,7 +32,8 @@ class EncounterManager extends Component {
     }
   }
   componentDidMount() {
-    var monsterList = this.generateMonsterInitiatives(this.state.monsterList);
+    console.log(this.state.playerList);
+    let monsterList = this.generateMonsterInitiatives(this.state.monsterList);
     this.rankedList = this.getIntiativeRanking(monsterList, this.state.playerList);
 
     this.setState({
@@ -41,37 +42,36 @@ class EncounterManager extends Component {
 
   }
   nextTurn() {
-    var lastIndex = this.rankedList.length - 1;
-    var currentIndex = this.state.currentParticipantIndex;
-    var currentRound = this.state.roundCount;
-    const shouldResetIndex = currentIndex === lastIndex;
-    const index =  shouldResetIndex ? 0 : currentIndex + 1;
-    const round = shouldResetIndex ? currentRound + 1 : currentRound;
+    const { currentParticipantIndex, roundCount } = this.state;
+    let lastIndex = this.rankedList.length - 1;
+    let shouldResetIndex = currentParticipantIndex === lastIndex;
+    let index =  shouldResetIndex ? 0 : currentParticipantIndex + 1;
+    let round = shouldResetIndex ? roundCount + 1 : roundCount;
+
     this.setState({
       currentParticipantIndex: index,
       roundCount: round
     });
   }
+
   updateConsciousness(name){
-    var playerList = this.state.playerList;
-    console.log(name);
+    const { playerList } = this.state;
+
 
     for(var i = 0; i < playerList.length; i++){
       if(playerList[i].name === name){
         playerList[i].unconscious = !playerList[i].unconscious;
       }
     }
-    console.log(playerList);
 
     this.setState({
       playerList : playerList
     })
   }
   updateHp(newHp, monsterIndex, monsterName) {
-    var monsterList = this.state.monsterList
+    const { monsterList } = this.state;
+    let monsterListArray = Object.entries(monsterList);
 
-    var monsterListArray = Object.entries(monsterList);
-    debugger;
     for (var i = 0; i < monsterListArray.length; i++) {
       var monsterObj = monsterListArray[i][1];
       if (monsterObj.details.name === monsterName) {
@@ -86,9 +86,9 @@ class EncounterManager extends Component {
   }
   generateMonsterInitiatives(monsterList) {
     Object.entries(monsterList).forEach(function (monster, index, monsterList) {
-      var rolld20 = Math.floor(Math.random() * 20) + 1;
-      var dexMod = monster[1].details.abilities.dex.modifier;
-      var initiative = rolld20 + dexMod;
+      let rolld20     = Math.floor(Math.random() * 20) + 1;
+      let  dexMod      = monster[1].details.abilities.dex.modifier;
+      let  initiative  = rolld20 + dexMod;
       monsterList[index][1].initiative = initiative;
       monsterList[index][1].participant = 'monster';
       monsterList[index][1].hpList = Array(monster[1].count).fill(monster[1].details.attributes['hit-points'].total);
@@ -96,12 +96,11 @@ class EncounterManager extends Component {
     return monsterList;
   }
   getIntiativeRanking(monsterList, playerList) {
-    var i;
-    for (i = 0; i < playerList.length; i++) {
+    for (var i = 0; i < playerList.length; i++) {
       playerList[i].participant = 'player';
       playerList[i].unconscious = false;
     }
-    var totalList = playerList;
+    let totalList = playerList;
     Object.entries(monsterList).forEach(function (monster) {
       totalList.push(monster[1]);
     });
@@ -118,10 +117,10 @@ class EncounterManager extends Component {
     return totalList;
   }
   render() {
-    var generatedComponents = [];
-    var rankedList = this.rankedList;
-    var updateHp = this.updateHp;
-    var updateConsciousness = this.updateConsciousness;
+    let generatedComponents = [],
+        rankedList          = this.rankedList,
+        updateHp            = this.updateHp,
+        updateConsciousness = this.updateConsciousness;
 
     rankedList.forEach(function (element, index) {
       if (element.participant === 'player') {

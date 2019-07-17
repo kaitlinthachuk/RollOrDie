@@ -7,7 +7,6 @@ class RoundCounterManager extends Component {
 constructor(props) {
   super();
 
-
   this.removeCounter = this.removeCounter.bind(this);
   this.addCounter = this.addCounter.bind(this);
 
@@ -41,15 +40,16 @@ removeCounter(index){
 
 addCounter(e){
   e.preventDefault();
-  var effect_name = e.target.previousElementSibling.value;
+  let effect_name = e.target.previousElementSibling.value;
   e.target.previousElementSibling.value = "";
-  var set =  this.props.roundCount;
-  var expires = this.props.roundCount + 10;
-  var turn = this.props.currentParticipantIndex;
-  var turn_participant = this.props.rankedList[this.props.currentParticipantIndex];
-  var counter = <Counter name = {effect_name} roundSet = {set}
+  const { roundCount, currentParticipantIndex, rankedList } = this.props;
+
+  let expires          = roundCount + 10,
+      turn_participant = rankedList[currentParticipantIndex];
+
+  let counter = <Counter name = {effect_name} roundSet = {roundCount}
                   roundExpire = {expires}
-                  turnExpire = {turn}
+                  turnExpire = {currentParticipantIndex}
                   onClick = {this.removeCounter}
                   index = {Math.floor((Math.random() * 100) + 1)}
                   turn_participant = {turn_participant}/>
@@ -64,7 +64,7 @@ addCounter(e){
       <div className = 'counter-form'>
         <div className= "counters">
         <input className = "counter-input" type="text" name="effect" placeholder="Effect Name"
-          autocomplete="off"/>
+          autoComplete="off"/>
         <button className='counter-add-button' onClick = {this.addCounter}>Add</button>
         </div>
         {this.state.counterList}

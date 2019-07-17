@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 
 class MonsterAttributes extends Component {
   render() {
-    var p = this.props;
-    var attributes = p.attributes;
+    const { attributes, size, alignment, type, highlightText } = this.props;
+
     return (
       <div className = "monster-attributes">
-      <p> {p.highlightText('Size')}: {this.props.size}</p>
-      <p> {p.highlightText('Alignment')}: {this.props.alignment} </p>
-      <p> {p.highlightText('Type')}: {this.props.type}</p>
-      <p> {p.highlightText('Type')}: {attributes['armor-class'].type}</p>
-      <p> {p.highlightText('Hit Dice')}: {attributes['hit-points']['hit-die']}</p>
-      <p> {p.highlightText('Speed')}: {attributes.speed}</p>
+      <p> {highlightText('Size')}: {size}</p>
+      <p> {highlightText('Alignment')}: {alignment} </p>
+      <p> {highlightText('Type')}: {type}</p>
+      <p> {highlightText('Type')}: {attributes['armor-class'].type}</p>
+      <p> {highlightText('Hit Dice')}: {attributes['hit-points']['hit-die']}</p>
+      <p> {highlightText('Speed')}: {attributes.speed}</p>
       </div>
     );
   }

@@ -7,28 +7,31 @@ class HP extends Component {
     this.healMonster = this.healMonster.bind(this);
     this.damageMonster = this.damageMonster.bind(this);
   }
+
   healMonster(e){
     e.preventDefault();
-    var parent = e.target.parentElement;
-    var newHp = parseInt(parent.dataset.currenthp) + parseInt(parent.children[0].value);
+    let parent = e.target.parentElement;
+    let newHp = parseInt(parent.dataset.currenthp) + parseInt(parent.children[0].value);
     parent.children[0].value = "";
     this.props.updateHp(newHp, parent.dataset.monsterindex, parent.id);
   }
+
   damageMonster(e){
     e.preventDefault();
-    debugger;
-    var parent = e.target.parentElement;
-    var calculateHp = parseInt(parent.dataset.currenthp) - parseInt(parent.children[0].value);
-    var newHp = calculateHp < 0 ? 0 : calculateHp;
+    let parent = e.target.parentElement;
+    let calculateHp = parseInt(parent.dataset.currenthp) - parseInt(parent.children[0].value);
+    let newHp = calculateHp < 0 ? 0 : calculateHp;
     parent.children[0].value = "";
     this.props.updateHp(newHp, parent.dataset.monsterindex, parent.id);
   }
-  render() {
-    var content = [];
 
-    for (var i = 0; i < this.props.count; i ++){
-      content.push(<HPComponent name = {this.props.monsterName} hp = {this.props.hpList[i]}
-        index = {i} heal = {this.healMonster} damage = {this.damageMonster} key = {i} />);
+  render() {
+    const { count, monsterName, hpList, healMonster, damageMonster } = this.props;
+    let content = [];
+
+    for (var i = 0; i < count; i ++){
+      content.push(<HPComponent name = {monsterName} hp = {hpList[i]}
+        index = {i} heal = {healMonster} damage = {damageMonster} key = {i} />);
     }
     return (
       <div className = "hp-container">{content}</div>

@@ -3,14 +3,14 @@ import '../styles/Carousel.scss';
 
 class Carousel extends Component {
   render() {
-    var children = this.props.children;
+    const { roundCount, children, nextTurn, currentParticipantIndex } = this.props;
 
     return (
       <div className = "carousel">
-        <h2 className = "round-title">Current Round: {this.props.roundCount}</h2>
-        <button className = 'round-button' onClick = {this.props.nextTurn}>Next</button>
-        {children[this.props.currentParticipantIndex]}
-        <button className='round-button-bottom' onClick = {this.props.nextTurn}>Next</button>
+        <h2 className = "round-title">Current Round: {roundCount}</h2>
+        <button className = 'round-button' onClick = {nextTurn}>Next</button>
+        {children[currentParticipantIndex]}
+        <button className='round-button-bottom' onClick = {nextTurn}>Next</button>
       </div>
     )
   }

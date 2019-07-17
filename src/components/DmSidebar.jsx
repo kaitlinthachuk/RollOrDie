@@ -6,10 +6,8 @@ import SidebarMonster from './SidebarMonster.jsx';
 
 class DmSidebar extends Component {
   render() {
-    var rankedList = this.props.rankedList;
-    var updateHp = this.props.updateHp;
-    var updateConsciousness = this.props.updateConsciousness;
-    var generatedComponents = [];
+    const { rankedList, updateHp, updateConsciousness } = this.props;
+    let generatedComponents = [];
 
     rankedList.forEach(function (element, index) {
       if (element.participant === 'player') {

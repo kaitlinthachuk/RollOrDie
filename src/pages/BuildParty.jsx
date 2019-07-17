@@ -72,7 +72,7 @@ class BuildParty extends Component {
               <h2>{player.name}</h2>
               <div>
               <span><i className='armor-icon'></i>{player.ac}</span>
-              <span><i className='initiative-icon'></i>{player.initiative}</span>
+              {player.initiative? <span><i className='initiative-icon'></i>{player.initiative}</span>: ""}
               </div>
             </div>
           );

@@ -34,7 +34,7 @@ class AddPlayerForm extends Component {
     let playerName = target.name.value,
         ac         = parseInt(target.ac.value),
         newPlayer  = {},
-        init = 0;
+        init       = 0;
 
     if(enterInit){
       init = target.init.value;

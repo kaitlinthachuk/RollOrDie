@@ -10,15 +10,15 @@ class Player extends Component {
     this.props.updateConsciousness(e.target.id);
   }
   render() {
-    var playerName = this.props.name;
-    var playerAc = this.props.ac;
-    var unconscious = this.props.unconscious;
+    const {name, ac, unconscious} = this.props;
 
     return (
-      <div className='player-tile' id = {playerName}>
-        <p>{playerName} <label className= 'unconscious-label'>
-        <input type='checkbox' id = {playerName} onChange = {this.checkboxClicked} checked={unconscious ? 'checked' : ''}></input>Unconscious </label> <br></br>
-         <i className='ac-icon'></i> {playerAc}</p>
+      <div className='player-tile' id = {name}>
+        <p>{name} </p>
+        <p><i className='ac-icon'></i> {ac}</p>
+        <label className= 'unconscious-label'>
+        <input type='checkbox' id = {name} onChange = {this.checkboxClicked} checked={unconscious ? 'checked' : ''}>
+        </input> Unconscious </label>
       </div>
     );
   }

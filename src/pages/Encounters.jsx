@@ -30,7 +30,7 @@ class Encounters extends Component {
         case constants.EncounterStage.MONSTERS_SELECTED:
           return <Redirect to={{pathname: '/PlayerSelection', state: { encounter: encounter } }} />
         default:
-          //TODO
+          return <Redirect to={{pathname: '/encounters', state: { encounter: encounter } }} />
       }
     }
     return (

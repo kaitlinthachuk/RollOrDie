@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar.jsx';
 import BottomNavbar from '../components/BottomNavbar.jsx';
 
 import '../styles/Page.scss';
-import ModalDialog from '../components/ModalDialog.jsx';
 import TabBar from '../components/TabBar.jsx';
 
 class Page extends Component {
@@ -22,7 +21,7 @@ class Page extends Component {
     window.addEventListener('resize', this.handleWindowResize);
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize);
   }
 
@@ -35,16 +34,16 @@ class Page extends Component {
         <div id={id} className="page">
           {this.props.children}
         </div>
-        { (width <= 1000 && ( leftSidebar || rightSidebar)) ? 
-        <TabBar 
+        { (width <= 1000 && ( leftSidebar || rightSidebar)) ?
+        <TabBar
           leftTabTitle={leftSidebarTitle}
           leftTabContent={leftSidebar}
           rightTabTitle={rightSidebarTitle}
           rightTabContent={rightSidebar}
-        /> : 
+        /> :
           [
-          <div className='left-side-bar'>{leftSidebar}</div>,
-          <div className='right-side-bar'>{rightSidebar}</div>,
+          <div key = "1" className='left-side-bar'>{leftSidebar}</div>,
+          <div key = "2" className='right-side-bar'>{rightSidebar}</div>,
           ]
         }
         <BottomNavbar>{bottom}</BottomNavbar>

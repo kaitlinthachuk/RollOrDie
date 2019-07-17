@@ -10,13 +10,13 @@ class ModalDialog extends Component {
   }
 
   render() {
-    const { show } = this.props;
+    const { show, children } = this.props;
     if (show) {
       document.addEventListener("keydown", this.handleKeyDown, false);
       return (
       <div className='modal-dialog'>
         <div className='children-wrapper' onClick={this.handleWrapperClick}>
-          {this.props.children}
+          {children}
         </div>
       </div>
       )

@@ -12,9 +12,9 @@ class MonsterActions extends Component {
     this.capitalize = null;
   }
   processActions(actions){
-    var content = [];
-    var highlightText = this.highlightText;
-    var capitalize = this.capitalize;
+    let content       = [],
+        highlightText = this.highlightText,
+        capitalize    = this.capitalize;
 
     actions.forEach(function(action, index){
       if(action.name === "Multiattack") {
@@ -39,9 +39,9 @@ class MonsterActions extends Component {
     return (<div key = "1000" className = "actions">{content}</div>);
   }
   processLegendaryActions(actions){
-    var content = [];
-    var highlightText = this.highlightText;
-    var capitalize = this.capitalize;
+    let content       = [],
+        highlightText = this.highlightText,
+        capitalize = this.capitalize;
 
     actions.forEach(function(action, index){
       if(action.name === "General"){
@@ -61,9 +61,10 @@ class MonsterActions extends Component {
     return (<div key = "1001" className = "legendary-actions">{content}</div>);
   }
   processPassiveActions(actions){
-    var content = [];
-    var highlightText = this.highlightText;
-    var capitalize = this.capitalize;
+    let content       = [],
+        highlightText = this.highlightText,
+        capitalize = this.capitalize;
+
     actions.forEach(function(action, index){
     content.push(<p key = {index}>{highlightText(capitalize(action.name))}: {action.description}</p>);
     var spanContent = [];
@@ -77,10 +78,11 @@ class MonsterActions extends Component {
     return (<div key = "1002" className = "extras">{content}</div>);
   }
   extractActions(actions){
-    var content = [];
-    var processActions = this.processActions;
-    var processLegendaryActions = this.processLegendaryActions;
-    var processPassiveActions = this.processPassiveActions;
+    let content                 = [],
+        processActions          = this.processActions,
+        processLegendaryActions = this.processLegendaryActions,
+        processPassiveActions   = this.processPassiveActions;
+
     Object.entries(actions).forEach(function(action) {
       if(action[0] === "actions"){
         content.push(processActions(action[1]));
@@ -97,10 +99,9 @@ class MonsterActions extends Component {
       return content;
   }
   render() {
-    var p = this.props;
-    var actions = p.actions;
-    this.highlightText = p.highlightText;
-    this.capitalize = p.capitalize;
+    const { actions, highlightText, capitalize } = this.props;
+    this.highlightText = highlightText;
+    this.capitalize = capitalize;
 
     return (
       <div className = "actions-container">

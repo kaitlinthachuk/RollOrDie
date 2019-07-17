@@ -3,7 +3,9 @@
   float: none;
 }
 
-.unconscious-label{
-  float: right;
-  margin: 10px;
-}
+  .player-tile{
+    grid-area: main-center;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+  }

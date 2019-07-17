@@ -36,7 +36,7 @@ class PlayerSelection extends Component {
   }
 
   componentDidMount() {
-    var recievedMonsters= this.props.location.state.encounter.selectedMonsters;
+    let recievedMonsters= this.props.location.state.encounter.selectedMonsters;
     this.setState({
       monsterList : recievedMonsters
     })
@@ -44,9 +44,9 @@ class PlayerSelection extends Component {
 
   deleteOnClick(e){
     e.preventDefault();
-    var playerContainer = e.target.parentElement;
-    var name = playerContainer.id;
-    var newList = this.state.playerList.filter(player => {
+    let name = e.target.parentElement.id;
+
+    let newList = this.state.playerList.filter(player => {
       return player.name !== name;
     })
 
@@ -62,7 +62,7 @@ class PlayerSelection extends Component {
   }
 
   render() {
-    const { playerList, pickParty, encounter, enterPartyInits, party, initError } = this.state;
+    const { playerList, pickParty, enterPartyInits, party, initError } = this.state;
 
     let players = playerList.map((player, index) => {
       return (<PlayerComponent
