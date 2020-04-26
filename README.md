@@ -8,7 +8,7 @@ RollOrDie is a React App that helps DMs keep track of all of the moving componen
 - [Creating an Encounter](#creating-an-encounter)
 - [Encounter Features](#encounter-features)
   * [Hit Points](#hit-points)
-  * [Conciousness](#conciousness)
+  * [Consciousness](#consciousness)
   * [DM Cheatsheet](#dm-cheatsheet)
   * [Effects Tracker](#effects-tracker)
   * [Full Monster Profile](#full-monster-profile)
@@ -44,11 +44,11 @@ Your app is ready to be deployed!
 
 ![add player](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/add_player_to_party.png)
 
-5. Once you have added all the players, hit "Save" in the top righthand corner. You should be able to see your new party on the "Your Parties" page. This party will be saved and will persist between sessions (and opening and closing the app) until you delete it.
+5. Once you have added all the players, hit "Save" in the top right hand corner. You should be able to see your new party on the "Your Parties" page. This party will be saved and will persist between sessions (and opening and closing the app) until you delete it.
 
 ![parties](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/your_parties.png)
 
-6. To update an exisiting party select it from the "Your Parties" page.
+6. To update an existing party select it from the "Your Parties" page.
 7. From here you will be able to remove players from the party, add new ones, rename the party, and view the current players and their ACs.
 
 ![party view](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/party_view.png)
@@ -62,11 +62,11 @@ Your app is ready to be deployed!
 
 Use the search bar to find the appropriate monster and the "+/-" buttons to add the correct number of monsters.
 
-4. Next is to input players or a party. If you already have a party premade select "add party" and select the name of your party. This will pull up a screen asking for initiaives of the players currently in the party.
+4. Next is to input players or a party. If you already have a party premade select "add party" and select the name of your party. This will pull up a screen asking for initiatives of the players currently in the party.
 
 ![party init](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/add_party_init.png)
 
-Type in the initiavie roles of each of the listed players and select done. You should now be able to see all the players in your party with their ACs and initiatives listed.
+Type in the initiative roles of each of the listed players and select done. You should now be able to see all the players in your party with their ACs and initiatives listed.
 
 ![party added](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/encounter_party_added.png)
 
@@ -86,21 +86,21 @@ And a monster:
 ## Encounter Features 
 ### Hit Points
   * HP can be updated in the sidebar or on the main page
-  * changes to HP will be propogated so an HP will be valid no matter where you look at it or update it
+  * changes to HP will be propagated so an HP will be valid no matter where you look at it or update it
   * separate HP trackers for each monster
 
 ![hp](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/hp_update.png)
 
-### Conciousness
-  * Like HP, when a player goes unconciouss you can simply check the box
-  * changes to concioussness will be propogated so you will able to see in the sidebar or on the player's turn if they are unconciouss
+### Consciousness
+  * Like HP, when a player goes unconscious you can simply check the box
+  * changes to consciousness will be propagated so you will able to see in the sidebar or on the player's turn if they are unconscious
 
 ![hp](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/unconciouss_player.png)
 
 ### DM Cheatsheet
 * see special features of monsters like resistances, advantages, and vulnerabilities
 * see legendary actions which can be taken outside of combat order
-* able to update HP and conciousness as it happens in combat
+* able to update HP and consciousness as it happens in combat
 * see full combat order
 
 ![cheatsheet](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/cheatsheet.png)
@@ -118,8 +118,3 @@ And a monster:
 * See all six abilities and their modifiers for checks and saving throws
 
 ![monster details](https://github.com/kaitlinthachuk/RollOrDie/blob/master/images/encounter_enemy_details.png)
-
-
-
-
-
