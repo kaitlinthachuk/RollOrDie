@@ -17,21 +17,23 @@ class HP extends Component {
   }
 
   damageMonster(e){
+    console.log("damage");
     e.preventDefault();
     let parent = e.target.parentElement;
     let calculateHp = parseInt(parent.dataset.currenthp) - parseInt(parent.children[0].value);
     let newHp = calculateHp < 0 ? 0 : calculateHp;
     parent.children[0].value = "";
+    console.log("caught event, new hp" + newHp);
     this.props.updateHp(newHp, parent.dataset.monsterindex, parent.id);
   }
 
   render() {
-    const { count, monsterName, hpList, healMonster, damageMonster } = this.props;
+    const { count, monsterName, hpList} = this.props;
     let content = [];
 
     for (var i = 0; i < count; i ++){
       content.push(<HPComponent name = {monsterName} hp = {hpList[i]}
-        index = {i} heal = {healMonster} damage = {damageMonster} key = {i} />);
+        index = {i} heal = {this.healMonster} damage = {this.damageMonster} key = {i} />);
     }
     return (
       <div className = "hp-container">{content}</div>
